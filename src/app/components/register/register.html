@@ -1,0 +1,17 @@
+<div class="registro">
+
+    <h2>Registros de Muestras</h2>
+    <input [(ngModel)]="nuevoRegistro" type="text" placeholder="Agrega Registro" />
+    <button (click)="addRegistro()">Añadir Registro</button>
+    
+    
+
+
+    <ul>
+        @for (registros of registro; track registros) {
+            <li>{{ registros }}</li>
+        }@empty {
+            <li>No hay registros</li>
+        }
+    </ul>
+</div>
