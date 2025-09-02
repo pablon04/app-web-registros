@@ -12,5 +12,4 @@ import { Register } from "./components/register/register";
 })
 export class App {
   protected readonly nombreProyecto = signal('Laboratorio');
-  description = 'Registra aqui cualquier muestra';
 }

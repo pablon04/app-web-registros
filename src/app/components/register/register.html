@@ -1,37 +1,46 @@
-<div>
-    <h2>Registros de Muestras</h2>
+<div class="container-humedades">
+    
     
     <div class="registrar">
+        <h2>Registrar Nueva Humedad</h2>
         <form action="#">
             <input [(ngModel)]="tara" type="text" id="tara" name="tara" placeholder="Tara" />
             <input [(ngModel)]="muestra" type="text" id="muestra" name="muestra" placeholder="Nº Muestra" />
             <input [(ngModel)]="ensayo" type="text" id="ensayo" name="ensayo" placeholder="Ensayo" />
             <input [(ngModel)]="horno" type="text" id="horno" name="horno" placeholder="Horno" />
 
-            <button type="button" (click)="agregarRegistro()">Agregar Registro</button>
+            <button type="button" (click)="agregarRegistro()">Agregar</button>
         </form>
     </div>
 
-    <h3>Lista de Registros</h3>
     
-    <table>
-        <tr>
-            <th>Tara</th>
-            <th>Muestra</th>
-            <th>Ensayo</th>
-            <th>Horno</th>
-        </tr>
-      @for (registro of registros; track registro; let i = $index) {
-        
-        <tr>
-            <td class="tara">{{ registro.tara }}</td>
-            <td class="muestra">{{ registro.muestra }}</td>
-            <td class="ensayo">{{ registro.ensayo }}</td>
-            <td class="horno">{{ registro.horno }}</td>
-            <td class="borrar"><button type="button" (click)="eliminarRegistro(i)">Eliminar</button></td>
-        </tr>
-      }
-          
-    </table>
     
+    <div class="registros">
+
+        <h2>Registros de Humedades</h2>
+        <table>
+            <tr>
+                <th>Tara</th>
+                <th>Muestra</th>
+                <th>Ensayo</th>
+                <th>Horno</th>
+                <th>Acciones</th>
+            </tr>
+        @for (registro of registros; track registro; let i = $index) {
+            
+            <tr>
+                <td class="tara">{{ registro.tara }}</td>
+                <td class="muestra">{{ registro.muestra }}</td>
+                <td class="ensayo">{{ registro.ensayo }}</td>
+                <td class="horno">{{ registro.horno }}</td>
+                <td class="borrar">
+                <button type="button" class="eliminar-btn" (click)="eliminarRegistro(i)">
+                    <i class="fa-trash"></i>Eliminar
+                </button></td>
+            </tr>
+        }
+            
+        </table>
+    </div>
+
 </div>

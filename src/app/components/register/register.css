@@ -1,0 +1,121 @@
+html{
+    background-color: antiquewhite;
+}
+.container-humedades{
+    width: 80%;
+    margin-top: 40px;
+}
+.registrar{
+    width: 100%;
+    
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid rgba(128, 128, 128, 0.151);
+    box-shadow: 5px 5px 5px 5px grey;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.registrar h2{
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.registrar input{
+    padding: 10px;
+    margin-right: 10px;
+    background-color: rgba(128, 128, 128, 0.151);
+    border: 1px solid grey;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.registrar button{
+    padding: 10px 20px;
+    border: none;
+    font-size: large;
+    border-radius: 5px;
+    background-color: #961818;
+    color: white;
+    cursor: pointer;
+}
+
+.registros{
+    width: 100%;
+    
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px  solid rgba(128, 128, 128, 0.151);
+    box-shadow: 5px 5px 5px 5px grey;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.registros table{
+    border: 1px solid  rgba(128, 128, 128, 0.151);
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    
+}
+
+.registros th, 
+.registros td {
+  text-align: left;
+  padding: 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: large;
+}
+
+.registros th {
+  font-weight: 600;
+  color: #555;
+  background-color: #fafafa;
+}
+
+
+
+.registros tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.registros .acciones {
+  text-align: center;
+}
+
+.registros .eliminar-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #d9534f;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.registros .eliminar-btn:hover {
+  color: #c9302c;
+}
+
+
+.registros .eliminar-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #d9534f; /* Color rojo */
+  font-size: 18px; /* Tamaño del icono */
+  transition: color 0.3s;
+  padding: 0; /* Asegúrate de que no haya padding extra en el botón si solo contiene el icono */
+  line-height: 1; /* Para alinear el icono correctamente */
+}
+
+.eliminar-btn:hover {
+  color: #c9302c; /* Color más oscuro al pasar el ratón */
+}
+
+/* Si quieres que el icono sea más grande o pequeño, puedes ajustar su font-size directamente */
+.eliminar-btn i {
+    font-size: 1.1em; /* Un poco más grande que el tamaño base del botón */
+}
