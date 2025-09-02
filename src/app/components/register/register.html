@@ -1,17 +1,37 @@
-<div class="registro">
-
+<div>
     <h2>Registros de Muestras</h2>
-    <input [(ngModel)]="nuevoRegistro" type="text" placeholder="Agrega Registro" />
-    <button (click)="addRegistro()">Añadir Registro</button>
     
+    <div class="registrar">
+        <form action="#">
+            <input [(ngModel)]="tara" type="text" id="tara" name="tara" placeholder="Tara" />
+            <input [(ngModel)]="muestra" type="text" id="muestra" name="muestra" placeholder="Nº Muestra" />
+            <input [(ngModel)]="ensayo" type="text" id="ensayo" name="ensayo" placeholder="Ensayo" />
+            <input [(ngModel)]="horno" type="text" id="horno" name="horno" placeholder="Horno" />
+
+            <button type="button" (click)="agregarRegistro()">Agregar Registro</button>
+        </form>
+    </div>
+
+    <h3>Lista de Registros</h3>
     
-
-
-    <ul>
-        @for (registros of registro; track registros) {
-            <li>{{ registros }}</li>
-        }@empty {
-            <li>No hay registros</li>
-        }
-    </ul>
+    <table>
+        <tr>
+            <th>Tara</th>
+            <th>Muestra</th>
+            <th>Ensayo</th>
+            <th>Horno</th>
+        </tr>
+      @for (registro of registros; track registro; let i = $index) {
+        
+        <tr>
+            <td class="tara">{{ registro.tara }}</td>
+            <td class="muestra">{{ registro.muestra }}</td>
+            <td class="ensayo">{{ registro.ensayo }}</td>
+            <td class="horno">{{ registro.horno }}</td>
+            <td class="borrar"><button type="button" (click)="eliminarRegistro(i)">Eliminar</button></td>
+        </tr>
+      }
+          
+    </table>
+    
 </div>
