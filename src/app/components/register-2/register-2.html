@@ -1,1 +1,46 @@
-<p>register-2 works!</p>
+<div class="container-muestra">
+    
+    
+    <div class="registrar">
+        <h2>Registrar Nueva Muestra</h2>
+        <form (ngSubmit)="agregarRegistro()">
+            <input type="text" placeholder="Nº Muestra" id="numeroMuestra" [(ngModel)]="numeroMuestra" name="numeroMuestra" required>
+            <input type="date" id="fecha" [(ngModel)]="fecha" name="fecha" required>
+            <input type="text" placeholder="Palet" id="palet" [(ngModel)]="palet" name="palet" required>
+            <input type="text" placeholder="Ubicación Palet" id="ubicacionPalet" [(ngModel)]="ubicacionPalet" name="ubicacionPalet" required>
+
+            <button type="submit">Agregar Registro</button>
+        </form>
+    </div>
+
+    
+    
+    <div class="registros">
+
+        <h2>Registros de Muestras</h2>
+        <table>
+            <tr>
+                <th>Nº Muestra</th>
+                <th>Fecha Entrada</th>
+                <th>Palet</th>
+                <th>Ubicación Palet</th>
+                <th>Acciones</th>
+            </tr>
+        @for (registro of registros; track registro; let i = $index) {
+            
+            <tr>
+                <td class="tara">{{ registro.numeroMuestra }}</td>
+                <td class="muestra">{{ registro.fecha }}</td>
+                <td class="ensayo">{{ registro.palet }}</td>
+                <td class="horno">{{ registro.ubicacionPalet }}</td>
+                <td class="borrar">
+                <button type="button" class="eliminar-btn" (click)="eliminarRegistro(i)">
+                    <i class="fas fa-trash"></i>
+                </button></td>
+            </tr>
+        }
+            
+        </table>
+    </div>
+
+</div>

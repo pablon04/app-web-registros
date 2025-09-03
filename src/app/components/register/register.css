@@ -31,6 +31,15 @@ html{
     width: 200px;
 }
 
+.registrar form input:focus{
+    outline: none;
+    border: 2px solid #961818;
+}
+
+.registrar form input:focus{
+    border: 2px solid #961818;
+}
+
 .registrar button{
     padding: 10px 20px;
     border: none;
@@ -39,6 +48,10 @@ html{
     background-color: #961818;
     color: white;
     cursor: pointer;
+}
+
+.registrar button:hover{
+    background-color: #7a1313;
 }
 
 .registros{
@@ -72,7 +85,6 @@ html{
 
 .registros th {
   font-weight: 600;
-  color: #555;
   background-color: #fafafa;
 }
 
@@ -101,6 +113,8 @@ html{
 
 
 .registros .eliminar-btn {
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   cursor: pointer;
