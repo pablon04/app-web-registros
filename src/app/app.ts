@@ -1,15 +1,15 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Register } from './components/register/register';
-import { RegisterSecond } from './components/register-2/register-2';
+import { HumComponent } from './components/humComponent/humComponent';
+import { MuestComponent } from './components/muestComponent/muestComponent';
 
 
 @Component({
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    Register,
-    RegisterSecond
+    HumComponent,
+    MuestComponent
 ], // Corrected import
   templateUrl: './app.html',
   styleUrl: './app.css'

@@ -62,7 +62,7 @@ body{
     background-color: white;
 }
 
-app-register, app-register-2{
+app-humcomponent, app-muestcomponent{
     display: flex;
     justify-content: center;
 }

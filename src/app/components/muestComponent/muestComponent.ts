@@ -11,12 +11,12 @@ interface Registro {
 }
 
 @Component({
-  selector: 'app-register-2',
+  selector: 'app-muestcomponent',
   imports: [FormsModule, CommonModule],
-  templateUrl: './register-2.html',
-  styleUrl: './register-2.css'
+  templateUrl: './muestComponent.html',
+  styleUrl: './muestComponent.css'
 })
-export class RegisterSecond implements OnInit {
+export class MuestComponent implements OnInit {
 
   // Propiedades para los inputs del formulario
   numeroMuestra: string = '';

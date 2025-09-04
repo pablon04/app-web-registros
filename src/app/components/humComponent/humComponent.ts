@@ -11,14 +11,14 @@ interface Registro {
 }
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-humcomponent',
   imports: [FormsModule, CommonModule], // Add NgForOf and NgIf
-  templateUrl: './register.html',
-  styleUrl: './register.css'
+  templateUrl: './humComponent.html',
+  styleUrl: './humComponent.css'
 })
 
 
-export class Register implements OnInit {
+export class HumComponent implements OnInit {
   // Propiedades para los inputs del formulario
   tara: string = '';
   muestra: string = '';
