@@ -6,23 +6,6 @@ html{
 body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-   
-}
-
-
-.title{
-    text-align: center;
-    color: darkred;
-    font-family: 'Arial', sans-serif;
-    background-color: lightgrey;
-    padding: 20px;
-    margin: 0;
-    
-}
-
-.title h1{
-    margin: 0;
-    padding: 0;
 }
 
 .btns{
@@ -82,4 +65,20 @@ body{
 app-register, app-register-2{
     display: flex;
     justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .btns {
+    width: 90%; /* Aumenta el ancho para llenar más la pantalla */
+    margin: 20px auto; /* Centra el contenedor y ajusta el margen */
+    grid-template-columns: 1fr; /* Apila los botones verticalmente */
+    height: auto; /* Permite que la altura se ajuste al contenido */
+  }
+
+  .btns .humedad-btn,
+  .btns .muestras-btn {
+    width: 100%; /* Hace que cada botón ocupe todo el ancho */
+    margin: 5px 0; /* Añade un margen vertical entre los botones */
+  }
+
 }

@@ -128,20 +128,115 @@ body{
   background: none;
   border: none;
   cursor: pointer;
-  color: #d9534f; /* Color rojo */
-  font-size: 18px; /* Tamaño del icono */
+  color: #d9534f; 
+  font-size: 18px; 
   transition: color 0.3s;
-  padding: 0; /* Asegúrate de que no haya padding extra en el botón si solo contiene el icono */
-  line-height: 1; /* Para alinear el icono correctamente */
+  padding: 0; 
+  line-height: 1; 
 }
 
 .eliminar-btn:hover {
-  color: #c9302c; /* Color más oscuro al pasar el ratón */
+  color: #c9302c; 
   cursor: pointer;
 }
 
-/* Si quieres que el icono sea más grande o pequeño, puedes ajustar su font-size directamente */
+
 .eliminar-btn i {
-    font-size: 1.1em; /* Un poco más grande que el tamaño base del botón */
+    font-size: 1.1em; 
 }
 
+@media (max-width: 768px) {
+  body {
+    padding: 20px;
+  }
+
+  .container-muestras {
+    margin-left: 2rem;
+    width: 100%;
+    margin-top: 20px;
+    margin-right: 2rem;
+  }
+
+  .registrar form {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px; 
+  }
+
+  .registrar input {
+    width: 90%; 
+    margin-right: 0; 
+  }
+
+  .registrar button {
+    width: 90%; 
+    margin-top: 10px; 
+  }
+
+  .registros table { 
+    width: 100%;
+    overflow-x: auto; 
+    white-space: nowrap; 
+  }
+
+  .registros th,
+  .registros td {
+    font-size: 14px;  
+    width: 100%;
+  }
+}
+
+@media (width <=600px){
+ body {
+    padding: 20px; /* Reduce padding for smaller screens */
+    align-items: flex-start; /* Adjust alignment */
+  }
+
+  .container-muestra {
+    margin-left: 2rem;
+    width: 95%; /* Make the main container wider */
+    margin-top: 20px;
+    margin-right: 2rem;
+  }
+  
+  .registrar {
+    padding: 15px; /* Reduce padding inside the registration box */
+  }
+
+  .registrar h2 {
+    font-size: 1.2em; /* Smaller heading for mobile */
+  }
+  
+  .registrar form {
+    display: flex;
+    flex-direction: column; /* Stack input fields and button vertically */
+    gap: 10px; /* Add space between stacked elements */
+  }
+  
+  .registrar input {
+    width: 90%; /* Make inputs full width */
+    margin-right: 0; /* Remove right margin */
+  }
+
+  .registrar button {
+    width: 100%; /* Make the button full width */
+    margin-top: 10px; /* Add some space above the button */
+  }
+
+  .registros table {
+    display: block;
+    overflow-x: auto; /* Adds a scrollbar if the table content is too wide */
+    white-space: nowrap; /* Prevents text from wrapping within cells */
+  }
+
+  .registros th, 
+  .registros td {
+    padding: 8px; /* Reduce table cell padding */
+    font-size: 14px; /* Smaller font size for table content */
+  }
+  
+  .registros .acciones {
+    text-align: center;
+    width: 60px; /* Set a specific width for the actions column to keep it compact */
+  }
+}

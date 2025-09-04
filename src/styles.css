@@ -8,3 +8,25 @@ body{
     margin: 0;
 
 }
+
+@media (max-width <=425px) {
+    html{
+        width: 100%;
+
+    }
+
+    header{
+        width: 100%;
+    }
+
+    h1{
+        width: 100%;
+        padding: 0;
+    }
+}
+
+@media (max-width <480px) {
+    html{
+        width: 100%;
+    }
+}
