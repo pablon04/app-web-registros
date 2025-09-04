@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 // Define the interface for a "Registro" object. This is a best practice.
 interface Registro {
@@ -11,13 +12,13 @@ interface Registro {
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule], // Add NgForOf and NgIf
+  imports: [FormsModule, CommonModule], // Add NgForOf and NgIf
   templateUrl: './register.html',
   styleUrl: './register.css'
 })
 
 
-export class Register {
+export class Register implements OnInit {
   // Propiedades para los inputs del formulario
   tara: string = '';
   muestra: string = '';
@@ -27,6 +28,10 @@ export class Register {
   // Lista que almacenará todos los registros.
   // Correctly type the array with the 'Registro' interface.
   registros: Registro[] = [];
+
+  ngOnInit(): void {
+      this.cargarRegistros();
+  }
 
   // Método para agregar un nuevo registro a la lista
   agregarRegistro() {
@@ -39,6 +44,7 @@ export class Register {
     };
     // Agrega el nuevo registro a la lista
     this.registros.push(nuevoRegistro);
+    this.guardarRegistros(); // Guarda los registros en el almacenamiento local
     // Opcional: Limpia los campos del formulario después de agregar un registro
     this.limpiarFormulario();
   }
@@ -46,6 +52,7 @@ export class Register {
   // Método para eliminar un registro por su índice
   eliminarRegistro(index: number) {
     this.registros.splice(index, 1);
+    this.guardarRegistros(); // Guarda los registros en el almacenamiento local
   }
 
   // Método auxiliar para limpiar los inputs del formulario
@@ -54,5 +61,16 @@ export class Register {
     this.muestra = '';
     this.ensayo = '';
     this.horno = '';
+  }
+
+  guardarRegistros() {
+    localStorage.setItem('registros', JSON.stringify(this.registros));
+  }
+
+  cargarRegistros() {
+    const datosGuardados = localStorage.getItem('registros');
+    if (datosGuardados) {
+      this.registros = JSON.parse(datosGuardados);
+    }
   }
 }

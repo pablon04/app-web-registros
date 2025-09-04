@@ -9,7 +9,9 @@
             <input [(ngModel)]="ensayo" type="text" id="ensayo" name="ensayo" placeholder="Ensayo" />
             <input [(ngModel)]="horno" type="text" id="horno" name="horno" placeholder="Horno" />
 
-            <button type="button" (click)="agregarRegistro()">Agregar</button>
+            <button type="button" (click)="agregarRegistro()" class="agregar-btn">
+                <i class="fa-solid fa-plus"></i>Agregar
+            </button>
         </form>
     </div>
 

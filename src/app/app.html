@@ -1,9 +1,17 @@
-<h1 class="title">
-  {{ nombreProyecto() }}
-</h1>
 
+<div class="btns">
+    <button (click)="showHumedad()" class="humedad-btn" >
+        Control de Humedad
+    </button>
+    <button (click)="showMuestras()" class="muestras-btn">
+        Control de Muestras
+    </button>
+</div>
 
+@if (activeComponent() === 'humedad') {
+  <app-register></app-register>
+} @else if (activeComponent() === 'muestras') {
+  <app-register-2></app-register-2>
+}
 
-<app-register></app-register>
-<app-register-2></app-register-2>
 <router-outlet/>

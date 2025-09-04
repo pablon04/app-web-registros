@@ -1,13 +1,22 @@
 html{
     background-color: antiquewhite;
 }
+
+body{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
 .container-humedades{
     width: 80%;
     margin-top: 40px;
 }
 .registrar{
     width: 100%;
-    
     align-items: center;
     margin-bottom: 20px;
     padding: 20px;
@@ -54,6 +63,11 @@ html{
     background-color: #7a1313;
 }
 
+.registrar .agregar-btn i {
+    margin-right: 10px; 
+    font-size: 1em; 
+}
+
 .registros{
     width: 100%;
     
@@ -78,13 +92,11 @@ html{
 .registros td {
   text-align: left;
   padding: 12px;
-  font-size: 14px;
+  font-size: 16px;
   border-bottom: 1px solid #e0e0e0;
-  font-size: large;
 }
 
 .registros th {
-  font-weight: 600;
   background-color: #fafafa;
 }
 

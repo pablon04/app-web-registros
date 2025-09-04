@@ -2,10 +2,10 @@ html{
     background-color: antiquewhite;
 }
 
-body {
+body{
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   padding: 40px;
   font-family: sans-serif;
   box-sizing: border-box;
@@ -13,15 +13,17 @@ body {
 
 .container-muestra{
     width: 80%;
-    max-width: 900px;
     margin-top: 40px;
+    align-items: center;
+    justify-content: center;
 }
 .registrar{
     width: 100%;
+    align-items: center;
     margin-bottom: 20px;
     padding: 20px;
     border: 1px solid rgba(128, 128, 128, 0.151);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 5px 5px 5px 5px grey;
     border-radius: 10px;
     background-color: white;
 }
@@ -31,34 +33,21 @@ body {
     margin-bottom: 20px;
 }
 
-.registrar form {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 15px;
-}
-
-.registrar label {
-    font-weight: bold;
-    color: #333;
-}
-
 .registrar input{
     padding: 10px;
+    margin-right: 10px;
     background-color: rgba(128, 128, 128, 0.151);
     border: 1px solid grey;
     border-radius: 5px;
     width: 200px;
-    flex-grow: 1;
 }
-
-.registrar input[type="date"] {
-    width: 150px;
-}
-
 
 .registrar form input:focus{
     outline: none;
+    border: 2px solid #961818;
+}
+
+.registrar form input:focus{
     border: 2px solid #961818;
 }
 
@@ -70,60 +59,89 @@ body {
     background-color: #961818;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-.registrar button:hover {
+.registrar button:hover{
     background-color: #7a1313;
+}
+
+.registrar .agregar-btn i {
+    margin-right: 10px; 
+    font-size: 1em; 
 }
 
 .registros{
     width: 100%;
+    
+    align-items: center;
     margin-bottom: 20px;
     padding: 20px;
-    border: 1px solid rgba(128, 128, 128, 0.151);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px  solid rgba(128, 128, 128, 0.151);
+    box-shadow: 5px 5px 5px 5px grey;
     border-radius: 10px;
     background-color: white;
 }
 
 .registros table{
+    border: 1px solid  rgba(128, 128, 128, 0.151);
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
+    
 }
 
 .registros th, 
 .registros td {
   text-align: left;
   padding: 12px;
-  font-size: 14px;
+  font-size: 16px;
   border-bottom: 1px solid #e0e0e0;
-  font-size: large;
 }
 
 .registros th {
-  font-weight: 600;
   background-color: #fafafa;
 }
 
-.registros td.borrar {
-  text-align: center;
-}
+
 
 .registros tbody tr:hover {
   background-color: #f5f5f5;
 }
 
-.registros .eliminar-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #d9534f;
-  font-size: 18px;
-  transition: color 0.3s;
+.registros .acciones {
+  text-align: center;
 }
 
 .registros .eliminar-btn:hover {
   color: #c9302c;
 }
+
+.registros .borrar{
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+.registros .eliminar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #d9534f; /* Color rojo */
+  font-size: 18px; /* Tamaño del icono */
+  transition: color 0.3s;
+  padding: 0; /* Asegúrate de que no haya padding extra en el botón si solo contiene el icono */
+  line-height: 1; /* Para alinear el icono correctamente */
+}
+
+.eliminar-btn:hover {
+  color: #c9302c; /* Color más oscuro al pasar el ratón */
+  cursor: pointer;
+}
+
+/* Si quieres que el icono sea más grande o pequeño, puedes ajustar su font-size directamente */
+.eliminar-btn i {
+    font-size: 1.1em; /* Un poco más grande que el tamaño base del botón */
+}
+
