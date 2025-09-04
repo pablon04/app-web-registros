@@ -241,3 +241,15 @@ body{
     width: 60px; /* Set a specific width for the actions column to keep it compact */
   }
 }
+
+@media (max-width:320px){
+
+  .container-humedades {
+    margin-left: 1rem;
+    width: 100%; 
+    margin-top: 20px;
+
+  }
+}
+
+
