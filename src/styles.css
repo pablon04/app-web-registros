@@ -26,7 +26,7 @@ body{
 }
 
 @media (max-width <480px) {
-    html{
-        width: 100%;
+    header{
+        width: 90%;
     }
 }

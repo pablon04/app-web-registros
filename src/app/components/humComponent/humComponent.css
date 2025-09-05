@@ -245,10 +245,10 @@ body{
 @media (max-width:320px){
 
   .container-humedades {
-    margin-left: 1rem;
-    width: 100%; 
+    margin-left: 0rem;
+    width: 90%; 
     margin-top: 20px;
-
+    
   }
 }
 

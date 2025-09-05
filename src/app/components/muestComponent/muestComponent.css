@@ -240,3 +240,14 @@ body{
     width: 60px; /* Set a specific width for the actions column to keep it compact */
   }
 }
+
+
+@media (max-width:320px){
+
+  .container-muestra {
+    margin-left: 0rem;
+    width: 90%; 
+    margin-top: 20px;
+    
+  }
+}

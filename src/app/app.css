@@ -81,3 +81,11 @@ app-humcomponent, app-muestcomponent{
   }
 
 }
+
+
+@media (max-width:320px){
+    app-humcomponent, app-muestcomponent{
+        flex-direction: column;
+        align-items: center;
+    }
+}
