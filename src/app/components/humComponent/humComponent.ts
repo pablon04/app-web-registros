@@ -74,19 +74,24 @@ export class HumComponent implements OnInit {
     }
   }
 
-    // Añadir nueva propiedad para el término de búsqueda
-  terminoBusqueda: string = '';
-  
+  busquedaTara: string = '';
+  busquedaMuestra: string = '';
+  busquedaEnsayo: string = '';
+  busquedaHorno: string = '';
 
-  // Agregar método para filtrar registros
+  // Método de filtrado
   get registrosFiltrados() {
-    if (!this.terminoBusqueda) return this.registros;
-    
-    return this.registros.filter(registro => 
-      registro.tara.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-      registro.muestra.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-      registro.ensayo.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-      registro.horno.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
-    );
+    return this.registros.filter(registro => {
+      const coincideTara = !this.busquedaTara || 
+        registro.tara.toLowerCase().includes(this.busquedaTara.toLowerCase());
+      const coincideMuestra = !this.busquedaMuestra || 
+        registro.muestra.toLowerCase().includes(this.busquedaMuestra.toLowerCase());
+      const coincideEnsayo = !this.busquedaEnsayo || 
+        registro.ensayo.toLowerCase().includes(this.busquedaEnsayo.toLowerCase());
+      const coincideHorno = !this.busquedaHorno || 
+        registro.horno.toLowerCase().includes(this.busquedaHorno.toLowerCase());
+
+      return coincideTara && coincideMuestra && coincideEnsayo && coincideHorno;
+    });
   }
 }

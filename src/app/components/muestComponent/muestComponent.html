@@ -21,13 +21,31 @@
 
         <h2>Registros de Muestras</h2>
 
-                <input type="search" 
-               [(ngModel)]="terminoBusqueda" 
-               name="busqueda" 
-               class="main__input"
-               placeholder="Buscar en registros">
+        <div class="div_search">
+            <input type="search" 
+                   [(ngModel)]="busquedanumeroMuestra" 
+                   name="busquedanumeroMuestra" 
+                   class="main__input"
+                   placeholder="Buscar Nº Muestra">
 
+            <input type="date" 
+                   [(ngModel)]="busquedafecha" 
+                   name="busquedafecha" 
+                   class="main__input"
+                   placeholder="Buscar Fecha">
+            
+            <input type="search" 
+                   [(ngModel)]="busquedapalet" 
+                   name="busquedapalet" 
+                   class="main__input"
+                   placeholder="Buscar Palet">
 
+            <input type="search" 
+                   [(ngModel)]="busquedaubicacionPalet" 
+                   name="busquedaubicacionPalet" 
+                   class="main__input"
+                   placeholder="Buscar Ubicación Palet">
+        </div>
         <table>
             <tr>
                 <th>Nº Muestra</th>
@@ -38,12 +56,12 @@
             </tr>
         @for (registro of registrosFiltrados; track registro; let i = $index) {
             
-            <tr class="main__text" [ngClass]="{'destacado': terminoBusqueda && 
-                (registro.numeroMuestra.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                 registro.fecha.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                 registro.palet.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                 registro.ubicacionPalet.toLowerCase().includes(terminoBusqueda.toLowerCase())
-                )}">
+            <tr class="main__text" [ngClass]="{
+                'destacado-numeroMuestra': busquedanumeroMuestra && registro.numeroMuestra.toLowerCase().includes(busquedanumeroMuestra.toLowerCase()),
+                'destacado-fecha': busquedafecha && registro.fecha.toLowerCase().includes(busquedafecha.toLowerCase()),
+                'destacado-palet': busquedapalet && registro.palet.toLowerCase().includes(busquedapalet.toLowerCase()),
+                'destacado-ubicacionPalet': busquedaubicacionPalet && registro.ubicacionPalet.toLowerCase().includes(busquedaubicacionPalet.toLowerCase())
+                 }">
                 <td class="tara">{{ registro.numeroMuestra }}</td>
                 <td class="muestra">{{ registro.fecha }}</td>
                 <td class="ensayo">{{ registro.palet }}</td>

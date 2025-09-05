@@ -21,12 +21,31 @@
 
         <h2>Registros de Humedades</h2>
 
-        <input type="search" 
-               [(ngModel)]="terminoBusqueda" 
-               name="busqueda" 
-               class="main__input"
-               placeholder="Buscar en registros">
+        <div class="div_search">
+            <input type="search" 
+                   [(ngModel)]="busquedaTara" 
+                   name="busquedaTara" 
+                   class="main__input"
+                   placeholder="Buscar Tara">
 
+            <input type="search" 
+                   [(ngModel)]="busquedaMuestra" 
+                   name="busquedaMuestra" 
+                   class="main__input"
+                   placeholder="Buscar Muestra">
+            
+            <input type="search" 
+                   [(ngModel)]="busquedaEnsayo" 
+                   name="busquedaEnsayo" 
+                   class="main__input"
+                   placeholder="Buscar Ensayo">
+
+            <input type="search" 
+                   [(ngModel)]="busquedaHorno" 
+                   name="busquedaHorno" 
+                   class="main__input"
+                   placeholder="Buscar Horno">
+        </div>
         <table>
             <tr>
                 <th>Tara</th>
@@ -37,12 +56,12 @@
             </tr>
         @for (registro of registrosFiltrados; track registro; let i = $index) {
             
-            <tr class="main__text" [ngClass]="{'destacado': terminoBusqueda && 
-                (registro.tara.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                 registro.muestra.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                 registro.ensayo.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
-                 registro.horno.toLowerCase().includes(terminoBusqueda.toLowerCase())
-                )}">
+            <tr class="main__text" [ngClass]="{
+                'destacado-tara': busquedaTara && registro.tara.toLowerCase().includes(busquedaTara.toLowerCase()),
+                'destacado-muestra': busquedaMuestra && registro.muestra.toLowerCase().includes(busquedaMuestra.toLowerCase()),
+                'destacado-ensayo': busquedaEnsayo && registro.ensayo.toLowerCase().includes(busquedaEnsayo.toLowerCase()),
+                'destacado-horno': busquedaHorno && registro.horno.toLowerCase().includes(busquedaHorno.toLowerCase())
+            }">
                 <td class="tara">{{ registro.tara }}</td>
                 <td class="muestra">{{ registro.muestra }}</td>
                 <td class="ensayo">{{ registro.ensayo }}</td>

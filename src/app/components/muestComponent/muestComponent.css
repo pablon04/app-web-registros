@@ -145,6 +145,12 @@ body{
     font-size: 1.1em; 
 }
 
+.div_search{
+    display: flex;
+    gap: 1rem;
+    width: fit-content;
+}
+
 .main__input{
     display: block;
     width: 100%;
@@ -156,8 +162,8 @@ body{
 }
 
 
-.destacado {
-    background-color: #cdbaf5;
+.destacado-numeroMuestra, .destacado-fecha, .destacado-palet, .destacado-ubicacionPalet{
+    background-color: #d1baba70;
     transition: background-color 0.3s;
 }
 

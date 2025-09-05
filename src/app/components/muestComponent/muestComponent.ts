@@ -70,17 +70,24 @@ export class MuestComponent implements OnInit {
     }
   }
 
-  terminoBusqueda: string = '';
+  busquedanumeroMuestra: string = '';
+  busquedafecha: string = '';
+  busquedapalet: string = '';
+  busquedaubicacionPalet: string = '';
 
-    // Agregar método para filtrar registros
+    // Método de filtrado
   get registrosFiltrados() {
-    if (!this.terminoBusqueda) return this.registros;
-    
-    return this.registros.filter(registro => 
-      registro.numeroMuestra.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-      registro.fecha.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-      registro.palet.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
-      registro.ubicacionPalet.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
-    );
+    return this.registros.filter(registro => {
+      const coincideMuestra2 = !this.busquedanumeroMuestra || 
+        registro.numeroMuestra.toLowerCase().includes(this.busquedanumeroMuestra.toLowerCase());
+      const coincideFecha = !this.  busquedafecha || 
+        registro.fecha.toLowerCase().includes(this.  busquedafecha.toLowerCase());
+      const coincidePalet = !this.  busquedapalet || 
+        registro.palet.toLowerCase().includes(this.  busquedapalet.toLowerCase());
+      const coincideUbicacionPalet = !this.busquedaubicacionPalet || 
+        registro.ubicacionPalet.toLowerCase().includes(this.busquedaubicacionPalet.toLowerCase());
+
+      return coincideMuestra2 && coincideFecha && coincidePalet && coincideUbicacionPalet;
+    });
   }
 }
