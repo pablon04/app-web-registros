@@ -145,6 +145,22 @@ body{
     font-size: 1.1em; 
 }
 
+.main__input{
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #ccc;
+    outline: none;
+    margin-bottom: 3rem;
+}
+
+
+.destacado {
+    background-color: #cdbaf5;
+    transition: background-color 0.3s;
+}
+
 @media (max-width: 768px) {
   body {
     padding: 20px;

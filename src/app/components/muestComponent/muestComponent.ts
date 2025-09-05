@@ -69,4 +69,18 @@ export class MuestComponent implements OnInit {
       this.registros = JSON.parse(registrosGuardados);
     }
   }
+
+  terminoBusqueda: string = '';
+
+    // Agregar método para filtrar registros
+  get registrosFiltrados() {
+    if (!this.terminoBusqueda) return this.registros;
+    
+    return this.registros.filter(registro => 
+      registro.numeroMuestra.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+      registro.fecha.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+      registro.palet.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+      registro.ubicacionPalet.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+    );
+  }
 }

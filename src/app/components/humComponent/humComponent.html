@@ -20,6 +20,13 @@
     <div class="registros">
 
         <h2>Registros de Humedades</h2>
+
+        <input type="search" 
+               [(ngModel)]="terminoBusqueda" 
+               name="busqueda" 
+               class="main__input"
+               placeholder="Buscar en registros">
+
         <table>
             <tr>
                 <th>Tara</th>
@@ -28,9 +35,14 @@
                 <th>Horno</th>
                 <th>Acciones</th>
             </tr>
-        @for (registro of registros; track registro; let i = $index) {
+        @for (registro of registrosFiltrados; track registro; let i = $index) {
             
-            <tr>
+            <tr class="main__text" [ngClass]="{'destacado': terminoBusqueda && 
+                (registro.tara.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+                 registro.muestra.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+                 registro.ensayo.toLowerCase().includes(terminoBusqueda.toLowerCase()) ||
+                 registro.horno.toLowerCase().includes(terminoBusqueda.toLowerCase())
+                )}">
                 <td class="tara">{{ registro.tara }}</td>
                 <td class="muestra">{{ registro.muestra }}</td>
                 <td class="ensayo">{{ registro.ensayo }}</td>

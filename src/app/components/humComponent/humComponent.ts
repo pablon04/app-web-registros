@@ -73,4 +73,20 @@ export class HumComponent implements OnInit {
       this.registros = JSON.parse(datosGuardados);
     }
   }
+
+    // Añadir nueva propiedad para el término de búsqueda
+  terminoBusqueda: string = '';
+  
+
+  // Agregar método para filtrar registros
+  get registrosFiltrados() {
+    if (!this.terminoBusqueda) return this.registros;
+    
+    return this.registros.filter(registro => 
+      registro.tara.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+      registro.muestra.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+      registro.ensayo.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+      registro.horno.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
+    );
+  }
 }
