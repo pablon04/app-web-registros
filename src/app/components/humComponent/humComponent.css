@@ -32,7 +32,7 @@ body{
 }
 
 .registrar input{
-    padding: 10px;
+    padding: 0.75rem;
     margin-right: 10px;
     background-color: rgba(128, 128, 128, 0.151);
     border: 1px solid grey;
@@ -154,12 +154,17 @@ body{
 
 .main__input{
     display: block;
+    background-color: rgba(128, 128, 128, 0.151);
     width: 100%;
     padding: 1rem;
     border-radius: 0.5rem;
     border: 2px solid #ccc;
     outline: none;
     margin-bottom: 3rem;
+}
+
+.div_search input:focus{
+    border: 2px solid #961818;
 }
 
 
