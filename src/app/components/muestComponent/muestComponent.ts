@@ -123,15 +123,14 @@ export class MuestComponent implements OnInit {
     this.guardarRegistros();
   }
   
-  // Method to check if the date is older than one month
+  //Comprobar si la fecha es mayor a un mes
   isDateOlderThanOneMonth(fecha: string): boolean {
     const registroDate = new Date(fecha);
     const currentDate = new Date();
     const oneMonthAgo = new Date();
     oneMonthAgo.setMonth(currentDate.getMonth() - 1);
 
-    // Check if the registered date is older than one month
-    // The date format must be 'YYYY-MM-DD' for this to work correctly
+   
     return registroDate < oneMonthAgo;
   }
 }
