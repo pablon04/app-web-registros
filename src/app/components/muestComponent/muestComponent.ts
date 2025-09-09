@@ -46,7 +46,7 @@ export class MuestComponent implements OnInit {
       palet: this.palet,
       ubicacionPalet: this.ubicacionPalet
     };
-    this.registros.push(nuevoRegistro);
+    this.registros.unshift(nuevoRegistro); // Agregamos al principio de la lista
     this.guardarRegistros(); // Guarda los registros después de agregar uno
     this.limpiarFormulario();
   }

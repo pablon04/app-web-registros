@@ -49,8 +49,8 @@ export class HumComponent implements OnInit {
       ensayo: this.ensayo,
       horno: this.horno
     };
-    // Agrega el nuevo registro a la lista
-    this.registros.push(nuevoRegistro);
+    // Agrega el nuevo registro al principio de la lista
+    this.registros.unshift(nuevoRegistro);
     this.guardarRegistros(); // Guarda los registros en el almacenamiento local
     // Opcional: Limpia los campos del formulario después de agregar un registro
     this.limpiarFormulario();
