@@ -96,6 +96,55 @@ body{
   border-bottom: 1px solid #e0e0e0;
 }
 
+.acciones {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.editar-btn,
+.guardar-btn,
+.eliminar-btn {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editar-btn {
+    color: #f44336;
+}
+
+.guardar-btn {
+    background-color: #2196F3;
+    color: white;
+}
+
+.guardar-btn:hover {
+    background-color: #1976D2;
+}
+
+.eliminar-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.eliminar-btn:hover {
+    background-color: #d32f2f;
+}
+
+.editar-btn i,
+.guardar-btn i,
+.eliminar-btn i {
+    font-size: 1.2em;
+}
+
 .registros th {
   background-color: #fafafa;
 }

@@ -62,14 +62,33 @@
                 'destacado-ensayo': busquedaEnsayo && registro.ensayo.toLowerCase().includes(busquedaEnsayo.toLowerCase()),
                 'destacado-horno': busquedaHorno && registro.horno.toLowerCase().includes(busquedaHorno.toLowerCase())
             }">
-                <td class="tara">{{ registro.tara }}</td>
-                <td class="muestra">{{ registro.muestra }}</td>
-                <td class="ensayo">{{ registro.ensayo }}</td>
-                <td class="horno">{{ registro.horno }}</td>
-                <td class="borrar">
-                <button type="button" class="eliminar-btn" (click)="eliminarRegistro(i)">
-                    <i class="fas fa-trash"></i>
-                </button></td>
+                <td class="tara">
+                    <ng-container *ngIf="!registro.editando">{{ registro.tara }}</ng-container>
+                    <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.tara">
+                </td>
+                <td class="muestra">
+                    <ng-container *ngIf="!registro.editando">{{ registro.muestra }}</ng-container>
+                    <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.muestra">
+                </td>
+                <td class="ensayo">
+                    <ng-container *ngIf="!registro.editando">{{ registro.ensayo }}</ng-container>
+                    <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.ensayo">
+                </td>
+                <td class="horno">
+                    <ng-container *ngIf="!registro.editando">{{ registro.horno }}</ng-container>
+                    <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.horno">
+                </td>
+                <td class="acciones">
+                    <button type="button" class="editar-btn" (click)="editarRegistro(i)" *ngIf="!registro.editando">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button type="button" class="guardar-btn" (click)="guardarEdicion(i)" *ngIf="registro.editando">
+                        <i class="fas fa-save"></i>
+                    </button>
+                    <button type="button" class="eliminar-btn" (click)="eliminarRegistro(i)">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
             </tr>
         }
             

@@ -8,6 +8,13 @@ interface Registro {
   muestra: string;
   ensayo: string;
   horno: string;
+  editando?: boolean;
+  registroTemporal?: {
+    tara: string;
+    muestra: string;
+    ensayo: string;
+    horno: string;
+  };
 }
 
 @Component({
@@ -93,5 +100,31 @@ export class HumComponent implements OnInit {
 
       return coincideTara && coincideMuestra && coincideEnsayo && coincideHorno;
     });
+  }
+
+  // Método para iniciar la edición de un registro
+  editarRegistro(index: number) {
+    const registro = this.registros[index];
+    registro.editando = true;
+    registro.registroTemporal = {
+      tara: registro.tara,
+      muestra: registro.muestra,
+      ensayo: registro.ensayo,
+      horno: registro.horno
+    };
+  }
+
+  // Método para guardar los cambios de la edición
+  guardarEdicion(index: number) {
+    const registro = this.registros[index];
+    if (registro.registroTemporal) {
+      registro.tara = registro.registroTemporal.tara;
+      registro.muestra = registro.registroTemporal.muestra;
+      registro.ensayo = registro.registroTemporal.ensayo;
+      registro.horno = registro.registroTemporal.horno;
+    }
+    registro.editando = false;
+    delete registro.registroTemporal;
+    this.guardarRegistros();
   }
 }

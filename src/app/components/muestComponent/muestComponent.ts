@@ -8,6 +8,13 @@ interface Registro {
   fecha: string;
   palet: string;
   ubicacionPalet: string;
+  editando?: boolean;
+  registroTemporal?: {
+    numeroMuestra: string;
+    fecha: string;
+    palet: string;
+    ubicacionPalet: string;
+  };
 }
 
 @Component({
@@ -89,5 +96,31 @@ export class MuestComponent implements OnInit {
 
       return coincideMuestra2 && coincideFecha && coincidePalet && coincideUbicacionPalet;
     });
+  }
+
+  // Método para iniciar la edición de un registro
+  editarRegistro(index: number) {
+    const registro = this.registros[index];
+    registro.editando = true;
+    registro.registroTemporal = {
+      numeroMuestra: registro.numeroMuestra,
+      fecha: registro.fecha,
+      palet: registro.palet,
+      ubicacionPalet: registro.ubicacionPalet
+    };
+  }
+
+  // Método para guardar los cambios de la edición
+  guardarEdicion(index: number) {
+    const registro = this.registros[index];
+    if (registro.registroTemporal) {
+      registro.numeroMuestra = registro.registroTemporal.numeroMuestra;
+      registro.fecha = registro.registroTemporal.fecha;
+      registro.palet = registro.registroTemporal.palet;
+      registro.ubicacionPalet = registro.registroTemporal.ubicacionPalet;
+    }
+    registro.editando = false;
+    delete registro.registroTemporal;
+    this.guardarRegistros();
   }
 }
