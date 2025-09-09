@@ -19,7 +19,7 @@ interface Registro {
 
 @Component({
   selector: 'app-humcomponent',
-  imports: [FormsModule, CommonModule], // Add NgForOf and NgIf
+  imports: [FormsModule, CommonModule],
   templateUrl: './humComponent.html',
   styleUrl: './humComponent.css'
 })
