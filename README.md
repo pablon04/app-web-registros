@@ -1,63 +1,37 @@
-<<<<<<< HEAD
-# Angular15Minutos
+**🧪 Aplicación de Registros de Laboratorio**
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.0.
+**¡Bienvenido a nuestra aplicación web de gestión! 👋**
 
-## Development server
+Este es el repositorio de la aplicación web de registros para un laboratorio, una herramienta poderosa y sencilla para gestionar y organizar datos de forma eficiente. Construida con **Angular** y potenciada por **Supabase** como base de datos, nuestra aplicación ofrece una experiencia fluida y segura para la administración de registros.
 
-To start a local development server, run:
+**📝 Descripción del Proyecto**
 
-```bash
-ng serve
-```
+Esta aplicación es una solución completa para la digitalización de registros de laboratorio. Permite a los usuarios registrar, visualizar, editar y eliminar entradas de datos de manera intuitiva. Al usar Supabase, garantizamos una base de datos robusta, escalable y con autenticación integrada, lo que facilita la gestión de usuarios y la seguridad de la información.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+**✨ Características Clave**
 
-## Code scaffolding
+- **Registro de Datos:** ✍️ Crea nuevos registros con facilidad a través de formularios intuitivos.
+- **Gestión de Registros:** 🔍 Visualiza, edita y elimina registros existentes con un par de clics.
+- **Panel Interactivo:** 📊 Un dashboard claro y conciso para una vista general de los datos.
+- **Autenticación Segura:** 🔒 Inicio de sesión y registro de usuarios gestionados por Supabase.
+- **Optimizado para Dispositivos:** 📱 Diseño responsivo que se adapta a cualquier dispositivo, desde desktops hasta smartphones.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+**🛠️ Tecnologías Utilizadas**
 
-```bash
-ng generate component component-name
-```
+- **Angular:** Framework frontend para una interfaz de usuario dinámica.
+- **Supabase:** Base de datos backend-as-a-service (BaaS) con Postgres y autenticación.
+- **TypeScript:** Lenguaje de programación para un código robusto y tipado.
+- **Vercel:** Deplegador de proyectos muy confiable, sencillo y rápido.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+**🤝 Contribución**
 
-```bash
-ng generate --help
-```
+¡Las contribuciones son bienvenidas! Si deseas mejorar este proyecto, por favor crea un *fork* del repositorio y envíanos un *pull request*.
 
-## Building
+**📞 Contacto**
 
-To build the project run:
+Si tienes alguna pregunta o sugerencia, no dudes en contactarme.
 
-```bash
-ng build
-```
+- **Nombre:** Pablo Navarro
+- **Correo electrónico:** pablonav.dev@gmail.com
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-=======
-# aprendiendo-angular
->>>>>>> b9f3cbc9fc2da55ca12d50e9777b197eb72a1e74
+**¡Gracias por visitar este proyecto!** 🙏
