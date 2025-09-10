@@ -85,6 +85,9 @@
                     <button type="button" class="guardar-btn" (click)="guardarEdicion(i)" *ngIf="registro.editando">
                         <i class="fas fa-save"></i>
                     </button>
+                    <button type="button" class="cancelar-btn" (click)="cancelarEdicion(i)" *ngIf="registro.editando">
+                        <i class="fas fa-times"></i>
+                    </button>
                     <button type="button" class="eliminar-btn" (click)="eliminarRegistro(i)">
                         <i class="fas fa-trash"></i>
                     </button>
@@ -93,6 +96,20 @@
         }
             
         </table>
+
+        <!-- Mostrar errores -->
+        @if (error()) {
+          <div class="error-message">
+            Error: {{ error() }}
+            <button (click)="limpiarError()">X</button>
+          </div>
+        }
+
+        <!-- Mostrar loading -->
+        @if (loading()) {
+          <div class="loading">Cargando...</div>
+        }
+
     </div>
 
 </div>

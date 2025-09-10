@@ -53,15 +53,15 @@
     @for (registro of registrosFiltrados; track registro; let i = $index) {
       
       <tr class="main__text" [ngClass]="{
-        'destacado-numeroMuestra': busquedanumeroMuestra && registro.numeroMuestra.toLowerCase().includes(busquedanumeroMuestra.toLowerCase()),
+        'destacado-numeroMuestra': busquedanumeroMuestra && registro.numero_muestra.toLowerCase().includes(busquedanumeroMuestra.toLowerCase()),
         'destacado-fecha': busquedafecha && registro.fecha.toLowerCase().includes(busquedafecha.toLowerCase()),
         'destacado-palet': busquedapalet && registro.palet.toLowerCase().includes(busquedapalet.toLowerCase()),
-        'destacado-ubicacionPalet': busquedaubicacionPalet && registro.ubicacionPalet.toLowerCase().includes(busquedaubicacionPalet.toLowerCase()),
+        'destacado-ubicacionPalet': busquedaubicacionPalet && registro.ubicacion_palet.toLowerCase().includes(busquedaubicacionPalet.toLowerCase()),
         'fila-vencida': isDateOlderThanOneMonth(registro.fecha)
         }">
         <td class="numeroMuestra">
-          <ng-container *ngIf="!registro.editando">{{ registro.numeroMuestra }}</ng-container>
-          <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.numeroMuestra">
+          <ng-container *ngIf="!registro.editando">{{ registro.numero_muestra }}</ng-container>
+          <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.numero_muestra">
         </td>
         <td class="fecha">
           <ng-container *ngIf="!registro.editando">{{ registro.fecha }}</ng-container>
@@ -72,8 +72,8 @@
           <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.palet">
         </td>
         <td class="ubicacionPalet">
-          <ng-container *ngIf="!registro.editando">{{ registro.ubicacionPalet }}</ng-container>
-          <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.ubicacionPalet">
+          <ng-container *ngIf="!registro.editando">{{ registro.ubicacion_palet }}</ng-container>
+          <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.ubicacion_palet">
         </td>
         <td class="acciones">
           <button type="button" class="editar-btn" (click)="editarRegistro(i)" *ngIf="!registro.editando">
@@ -81,6 +81,9 @@
           </button>
           <button type="button" class="guardar-btn" (click)="guardarEdicion(i)" *ngIf="registro.editando">
             <i class="fas fa-save"></i>
+          </button>
+          <button type="button" class="cancelar-btn" (click)="cancelarEdicion(i)" *ngIf="registro.editando">
+            <i class="fas fa-times"></i>
           </button>
           <button type="button" class="eliminar-btn" (click)="eliminarRegistro(i)">
             <i class="fas fa-trash"></i>
@@ -90,6 +93,20 @@
     }
       
     </table>
+
+    <!-- Mostrar errores -->
+    @if (error()) {
+      <div class="error-message">
+        Error: {{ error() }}
+        <button (click)="limpiarError()">X</button>
+      </div>
+    }
+
+    <!-- Mostrar loading -->
+    @if (loading()) {
+      <div class="loading">Cargando...</div>
+    }
+
   </div>
 
 </div>

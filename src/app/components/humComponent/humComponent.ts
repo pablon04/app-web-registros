@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RegistroHumedadService } from '../../services/registro-humedad.service';
+import { RegistroHumedad } from '../../models/registro.interface';
 
-// Define the interface for a "Registro" object. This is a best practice.
-interface Registro {
-  tara: string;
-  muestra: string;
-  ensayo: string;
-  horno: string;
+// Define the interface for a "Registro" object with editing properties
+interface RegistroLocal extends RegistroHumedad {
   editando?: boolean;
   registroTemporal?: {
     tara: string;
@@ -25,7 +23,10 @@ interface Registro {
 })
 
 
-export class HumComponent implements OnInit {
+export default class HumComponent implements AfterViewInit {
+
+  private registroService = inject(RegistroHumedadService);
+
   // Propiedades para los inputs del formulario
   tara: string = '';
   muestra: string = '';
@@ -33,33 +34,45 @@ export class HumComponent implements OnInit {
   horno: string = '';
 
   // Lista que almacenará todos los registros.
-  // Correctly type the array with the 'Registro' interface.
-  registros: Registro[] = [];
+  registros: RegistroLocal[] = [];
 
-  ngOnInit(): void {
-      this.cargarRegistros();
+  // Propiedades computadas del servicio
+  loading = this.registroService.loading;
+  error = this.registroService.error;
+
+  ngAfterViewInit(): void {
+    this.cargarRegistros();
   }
 
   // Método para agregar un nuevo registro a la lista
-  agregarRegistro() {
-    // Crea un nuevo objeto con los valores del formulario
-    const nuevoRegistro: Registro = {
+  async agregarRegistro() {
+    if (!this.tara || !this.muestra || !this.ensayo || !this.horno) {
+      return; // Validación básica
+    }
+
+    const nuevoRegistro = {
       tara: this.tara,
       muestra: this.muestra,
       ensayo: this.ensayo,
       horno: this.horno
     };
-    // Agrega el nuevo registro al principio de la lista
-    this.registros.unshift(nuevoRegistro);
-    this.guardarRegistros(); // Guarda los registros en el almacenamiento local
-    // Opcional: Limpia los campos del formulario después de agregar un registro
-    this.limpiarFormulario();
+
+    const resultado = await this.registroService.crearRegistro(nuevoRegistro);
+    
+    if (resultado) {
+      this.limpiarFormulario();
+    }
   }
 
   // Método para eliminar un registro por su índice
-  eliminarRegistro(index: number) {
-    this.registros.splice(index, 1);
-    this.guardarRegistros(); // Guarda los registros en el almacenamiento local
+  async eliminarRegistro(index: number) {
+    const registro = this.registros[index];
+    if (registro.id) {
+      const resultado = await this.registroService.eliminarRegistro(registro.id);
+      if (resultado) {
+        this.registros.splice(index, 1);
+      }
+    }
   }
 
   // Método auxiliar para limpiar los inputs del formulario
@@ -70,15 +83,13 @@ export class HumComponent implements OnInit {
     this.horno = '';
   }
 
-  guardarRegistros() {
-    localStorage.setItem('registros', JSON.stringify(this.registros));
-  }
-
-  cargarRegistros() {
-    const datosGuardados = localStorage.getItem('registros');
-    if (datosGuardados) {
-      this.registros = JSON.parse(datosGuardados);
-    }
+  async cargarRegistros() {
+    await this.registroService.obtenerTodosLosRegistros();
+    // Convertir los registros de Supabase a registros locales con propiedades de edición
+    this.registros = this.registroService.registros().map(registro => ({
+      ...registro,
+      editando: false
+    }));
   }
 
   busquedaTara: string = '';
@@ -115,16 +126,38 @@ export class HumComponent implements OnInit {
   }
 
   // Método para guardar los cambios de la edición
-  guardarEdicion(index: number) {
+  async guardarEdicion(index: number) {
     const registro = this.registros[index];
-    if (registro.registroTemporal) {
-      registro.tara = registro.registroTemporal.tara;
-      registro.muestra = registro.registroTemporal.muestra;
-      registro.ensayo = registro.registroTemporal.ensayo;
-      registro.horno = registro.registroTemporal.horno;
+    if (registro.registroTemporal && registro.id) {
+      const datosActualizados = {
+        tara: registro.registroTemporal.tara,
+        muestra: registro.registroTemporal.muestra,
+        ensayo: registro.registroTemporal.ensayo,
+        horno: registro.registroTemporal.horno
+      };
+
+      const resultado = await this.registroService.actualizarRegistro(registro.id, datosActualizados);
+      
+      if (resultado) {
+        registro.tara = registro.registroTemporal.tara;
+        registro.muestra = registro.registroTemporal.muestra;
+        registro.ensayo = registro.registroTemporal.ensayo;
+        registro.horno = registro.registroTemporal.horno;
+        registro.editando = false;
+        delete registro.registroTemporal;
+      }
     }
+  }
+
+  // Método para cancelar la edición
+  cancelarEdicion(index: number) {
+    const registro = this.registros[index];
     registro.editando = false;
     delete registro.registroTemporal;
-    this.guardarRegistros();
+  }
+
+  // Método para limpiar errores
+  limpiarError() {
+    this.registroService.limpiarError();
   }
 }

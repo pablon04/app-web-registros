@@ -328,4 +328,53 @@ body{
   }
 }
 
+/* Estilos para el nuevo botón cancelar */
+.cancelar-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.cancelar-btn:hover {
+  background-color: #da190b;
+}
+
+/* Estilos para mensajes de error */
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border: 1px solid #ef5350;
+  border-radius: 4px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.error-message button {
+  background-color: #c62828;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Estilos para indicador de carga */
+.loading {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 10px;
+  border: 1px solid #64b5f6;
+  border-radius: 4px;
+  margin: 10px 0;
+  text-align: center;
+}
+
 

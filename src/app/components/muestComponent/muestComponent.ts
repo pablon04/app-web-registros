@@ -1,30 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RegistroMuestraService } from '../../services/registro-muestra.service';
+import { RegistroMuestra } from '../../models/registro.interface';
 
-// Define the interface with the new fields
-interface Registro {
-  numeroMuestra: string;
-  fecha: string;
-  palet: string;
-  ubicacionPalet: string;
+// Define the interface with the new fields and editing properties
+interface RegistroLocal extends RegistroMuestra {
   editando?: boolean;
   registroTemporal?: {
-    numeroMuestra: string;
+    numero_muestra: string;
     fecha: string;
     palet: string;
-    ubicacionPalet: string;
+    ubicacion_palet: string;
   };
 }
 
 @Component({
   selector: 'app-muestcomponent',
-  standalone: true, // You may need to add standalone: true depending on your Angular version
+  standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './muestComponent.html',
   styleUrl: './muestComponent.css'
 })
 export class MuestComponent implements OnInit {
+
+  private registroService = inject(RegistroMuestraService);
 
   // Properties for form inputs
   numeroMuestra: string = '';
@@ -32,7 +32,11 @@ export class MuestComponent implements OnInit {
   palet: string = '';
   ubicacionPalet: string = '';
 
-  registros: Registro[] = [];
+  registros: RegistroLocal[] = [];
+
+  // Propiedades computadas del servicio
+  loading = this.registroService.loading;
+  error = this.registroService.error;
 
   // Implement OnInit to load data when the component starts
   ngOnInit(): void {
@@ -40,21 +44,33 @@ export class MuestComponent implements OnInit {
   }
 
   // --- Logic Methods ---
-  agregarRegistro() {
-    const nuevoRegistro: Registro = {
-      numeroMuestra: this.numeroMuestra,
+  async agregarRegistro() {
+    if (!this.numeroMuestra || !this.fecha || !this.palet || !this.ubicacionPalet) {
+      return; // Validación básica
+    }
+
+    const nuevoRegistro = {
+      numero_muestra: this.numeroMuestra,
       fecha: this.fecha,
       palet: this.palet,
-      ubicacionPalet: this.ubicacionPalet
+      ubicacion_palet: this.ubicacionPalet
     };
-    this.registros.unshift(nuevoRegistro);
-    this.guardarRegistros();
-    this.limpiarFormulario();
+
+    const resultado = await this.registroService.crearRegistro(nuevoRegistro);
+    
+    if (resultado) {
+      this.limpiarFormulario();
+    }
   }
 
-  eliminarRegistro(index: number) {
-    this.registros.splice(index, 1);
-    this.guardarRegistros();
+  async eliminarRegistro(index: number) {
+    const registro = this.registros[index];
+    if (registro.id) {
+      const resultado = await this.registroService.eliminarRegistro(registro.id);
+      if (resultado) {
+        this.registros.splice(index, 1);
+      }
+    }
   }
 
   limpiarFormulario() {
@@ -65,15 +81,13 @@ export class MuestComponent implements OnInit {
   }
 
   // --- Storage Methods ---
-  guardarRegistros() {
-    localStorage.setItem('registrosData', JSON.stringify(this.registros));
-  }
-
-  cargarRegistros() {
-    const registrosGuardados = localStorage.getItem('registrosData');
-    if (registrosGuardados) {
-      this.registros = JSON.parse(registrosGuardados);
-    }
+  async cargarRegistros() {
+    await this.registroService.obtenerTodosLosRegistros();
+    // Convertir los registros de Supabase a registros locales con propiedades de edición
+    this.registros = this.registroService.registros().map(registro => ({
+      ...registro,
+      editando: false
+    }));
   }
 
   busquedanumeroMuestra: string = '';
@@ -85,13 +99,13 @@ export class MuestComponent implements OnInit {
   get registrosFiltrados() {
     return this.registros.filter(registro => {
       const coincideMuestra = !this.busquedanumeroMuestra ||
-        registro.numeroMuestra.toLowerCase().includes(this.busquedanumeroMuestra.toLowerCase());
+        registro.numero_muestra.toLowerCase().includes(this.busquedanumeroMuestra.toLowerCase());
       const coincideFecha = !this.busquedafecha ||
         registro.fecha.toLowerCase().includes(this.busquedafecha.toLowerCase());
       const coincidePalet = !this.busquedapalet ||
         registro.palet.toLowerCase().includes(this.busquedapalet.toLowerCase());
       const coincideUbicacionPalet = !this.busquedaubicacionPalet ||
-        registro.ubicacionPalet.toLowerCase().includes(this.busquedaubicacionPalet.toLowerCase());
+        registro.ubicacion_palet.toLowerCase().includes(this.busquedaubicacionPalet.toLowerCase());
 
       return coincideMuestra && coincideFecha && coincidePalet && coincideUbicacionPalet;
     });
@@ -102,25 +116,42 @@ export class MuestComponent implements OnInit {
     const registro = this.registros[index];
     registro.editando = true;
     registro.registroTemporal = {
-      numeroMuestra: registro.numeroMuestra,
+      numero_muestra: registro.numero_muestra,
       fecha: registro.fecha,
       palet: registro.palet,
-      ubicacionPalet: registro.ubicacionPalet
+      ubicacion_palet: registro.ubicacion_palet
     };
   }
 
   // Method to save the edited changes
-  guardarEdicion(index: number) {
+  async guardarEdicion(index: number) {
     const registro = this.registros[index];
-    if (registro.registroTemporal) {
-      registro.numeroMuestra = registro.registroTemporal.numeroMuestra;
-      registro.fecha = registro.registroTemporal.fecha;
-      registro.palet = registro.registroTemporal.palet;
-      registro.ubicacionPalet = registro.registroTemporal.ubicacionPalet;
+    if (registro.registroTemporal && registro.id) {
+      const datosActualizados = {
+        numero_muestra: registro.registroTemporal.numero_muestra,
+        fecha: registro.registroTemporal.fecha,
+        palet: registro.registroTemporal.palet,
+        ubicacion_palet: registro.registroTemporal.ubicacion_palet
+      };
+
+      const resultado = await this.registroService.actualizarRegistro(registro.id, datosActualizados);
+      
+      if (resultado) {
+        registro.numero_muestra = registro.registroTemporal.numero_muestra;
+        registro.fecha = registro.registroTemporal.fecha;
+        registro.palet = registro.registroTemporal.palet;
+        registro.ubicacion_palet = registro.registroTemporal.ubicacion_palet;
+        registro.editando = false;
+        delete registro.registroTemporal;
+      }
     }
+  }
+
+  // Método para cancelar la edición
+  cancelarEdicion(index: number) {
+    const registro = this.registros[index];
     registro.editando = false;
     delete registro.registroTemporal;
-    this.guardarRegistros();
   }
   
   //Comprobar si la fecha es mayor a un mes
@@ -130,7 +161,11 @@ export class MuestComponent implements OnInit {
     const oneMonthAgo = new Date();
     oneMonthAgo.setMonth(currentDate.getMonth() - 1);
 
-   
     return registroDate < oneMonthAgo;
+  }
+
+  // Método para limpiar errores
+  limpiarError() {
+    this.registroService.limpiarError();
   }
 }
