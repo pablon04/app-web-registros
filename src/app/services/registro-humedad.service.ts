@@ -39,9 +39,15 @@ export class RegistroHumedadService {
         throw new Error(`Error al obtener registros: ${error.message}`);
       }
 
+      // Inicializar propiedades de edición
+      const registrosConEdicion = (data || []).map(registro => ({
+        ...registro,
+        editando: false
+      }));
+
       this._state.update((state) => ({ 
         ...state, 
-        registros: data || [], 
+        registros: registrosConEdicion, 
         loading: false 
       }));
     } catch (error: any) {
@@ -66,10 +72,16 @@ export class RegistroHumedadService {
 
       if (error) throw error;
 
+      // Inicializar propiedades de edición
+      const registroConEdicion = {
+        ...data,
+        editando: false
+      };
+
       // Actualizar el estado local
       this._state.update((state) => ({
         ...state,
-        registros: [data, ...state.registros],
+        registros: [registroConEdicion, ...state.registros],
         loading: false
       }));
 

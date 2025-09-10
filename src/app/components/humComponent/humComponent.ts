@@ -4,17 +4,6 @@ import { CommonModule } from '@angular/common';
 import { RegistroHumedadService } from '../../services/registro-humedad.service';
 import { RegistroHumedad } from '../../models/registro.interface';
 
-// Define the interface for a "Registro" object with editing properties
-interface RegistroLocal extends RegistroHumedad {
-  editando?: boolean;
-  registroTemporal?: {
-    tara: string;
-    muestra: string;
-    ensayo: string;
-    horno: string;
-  };
-}
-
 @Component({
   selector: 'app-humcomponent',
   imports: [FormsModule, CommonModule],
@@ -33,8 +22,8 @@ export default class HumComponent implements AfterViewInit {
   ensayo: string = '';
   horno: string = '';
 
-  // Lista que almacenará todos los registros.
-  registros: RegistroLocal[] = [];
+  // Lista que almacenará todos los registros (ahora reactiva desde el servicio)
+  registros = this.registroService.registros;
 
   // Propiedades computadas del servicio
   loading = this.registroService.loading;
@@ -66,12 +55,10 @@ export default class HumComponent implements AfterViewInit {
 
   // Método para eliminar un registro por su índice
   async eliminarRegistro(index: number) {
-    const registro = this.registros[index];
+    const registro = this.registros()[index];
     if (registro.id) {
       const resultado = await this.registroService.eliminarRegistro(registro.id);
-      if (resultado) {
-        this.registros.splice(index, 1);
-      }
+      // No necesitamos splice, el servicio actualiza automáticamente la lista
     }
   }
 
@@ -85,11 +72,7 @@ export default class HumComponent implements AfterViewInit {
 
   async cargarRegistros() {
     await this.registroService.obtenerTodosLosRegistros();
-    // Convertir los registros de Supabase a registros locales con propiedades de edición
-    this.registros = this.registroService.registros().map(registro => ({
-      ...registro,
-      editando: false
-    }));
+    // Ya no necesitamos copiar datos, usamos directamente las señales reactivas
   }
 
   busquedaTara: string = '';
@@ -99,7 +82,7 @@ export default class HumComponent implements AfterViewInit {
 
   // Método de filtrado
   get registrosFiltrados() {
-    return this.registros.filter(registro => {
+    return this.registros().filter(registro => {
       const coincideTara = !this.busquedaTara || 
         registro.tara.toLowerCase().includes(this.busquedaTara.toLowerCase());
       const coincideMuestra = !this.busquedaMuestra || 
@@ -115,7 +98,7 @@ export default class HumComponent implements AfterViewInit {
 
   // Método para iniciar la edición de un registro
   editarRegistro(index: number) {
-    const registro = this.registros[index];
+    const registro = this.registros()[index];
     registro.editando = true;
     registro.registroTemporal = {
       tara: registro.tara,
@@ -127,7 +110,7 @@ export default class HumComponent implements AfterViewInit {
 
   // Método para guardar los cambios de la edición
   async guardarEdicion(index: number) {
-    const registro = this.registros[index];
+    const registro = this.registros()[index];
     if (registro.registroTemporal && registro.id) {
       const datosActualizados = {
         tara: registro.registroTemporal.tara,
@@ -139,10 +122,6 @@ export default class HumComponent implements AfterViewInit {
       const resultado = await this.registroService.actualizarRegistro(registro.id, datosActualizados);
       
       if (resultado) {
-        registro.tara = registro.registroTemporal.tara;
-        registro.muestra = registro.registroTemporal.muestra;
-        registro.ensayo = registro.registroTemporal.ensayo;
-        registro.horno = registro.registroTemporal.horno;
         registro.editando = false;
         delete registro.registroTemporal;
       }
@@ -151,7 +130,7 @@ export default class HumComponent implements AfterViewInit {
 
   // Método para cancelar la edición
   cancelarEdicion(index: number) {
-    const registro = this.registros[index];
+    const registro = this.registros()[index];
     registro.editando = false;
     delete registro.registroTemporal;
   }

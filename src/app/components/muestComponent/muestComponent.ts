@@ -4,17 +4,6 @@ import { CommonModule } from '@angular/common';
 import { RegistroMuestraService } from '../../services/registro-muestra.service';
 import { RegistroMuestra } from '../../models/registro.interface';
 
-// Define the interface with the new fields and editing properties
-interface RegistroLocal extends RegistroMuestra {
-  editando?: boolean;
-  registroTemporal?: {
-    numero_muestra: string;
-    fecha: string;
-    palet: string;
-    ubicacion_palet: string;
-  };
-}
-
 @Component({
   selector: 'app-muestcomponent',
   standalone: true,
@@ -32,9 +21,8 @@ export class MuestComponent implements OnInit {
   palet: string = '';
   ubicacionPalet: string = '';
 
-  registros: RegistroLocal[] = [];
-
-  // Propiedades computadas del servicio
+  // Propiedades computadas del servicio (reactivas)
+  registros = this.registroService.registros;
   loading = this.registroService.loading;
   error = this.registroService.error;
 
@@ -60,16 +48,15 @@ export class MuestComponent implements OnInit {
     
     if (resultado) {
       this.limpiarFormulario();
+      // No necesitamos actualizar manualmente, el servicio ya actualiza los datos reactivos
     }
   }
 
   async eliminarRegistro(index: number) {
-    const registro = this.registros[index];
+    const registro = this.registros()[index]; // Ahora usamos la función reactiva
     if (registro.id) {
       const resultado = await this.registroService.eliminarRegistro(registro.id);
-      if (resultado) {
-        this.registros.splice(index, 1);
-      }
+      // No necesitamos splice, el servicio actualiza automáticamente la lista
     }
   }
 
@@ -83,11 +70,7 @@ export class MuestComponent implements OnInit {
   // --- Storage Methods ---
   async cargarRegistros() {
     await this.registroService.obtenerTodosLosRegistros();
-    // Convertir los registros de Supabase a registros locales con propiedades de edición
-    this.registros = this.registroService.registros().map(registro => ({
-      ...registro,
-      editando: false
-    }));
+    // Ya no necesitamos copiar datos, usamos directamente las señales reactivas
   }
 
   busquedanumeroMuestra: string = '';
@@ -97,7 +80,7 @@ export class MuestComponent implements OnInit {
 
   // Filtering method
   get registrosFiltrados() {
-    return this.registros.filter(registro => {
+    return this.registros().filter(registro => {
       const coincideMuestra = !this.busquedanumeroMuestra ||
         registro.numero_muestra.toLowerCase().includes(this.busquedanumeroMuestra.toLowerCase());
       const coincideFecha = !this.busquedafecha ||
@@ -113,7 +96,7 @@ export class MuestComponent implements OnInit {
 
   // Method to start editing a record
   editarRegistro(index: number) {
-    const registro = this.registros[index];
+    const registro = this.registros()[index];
     registro.editando = true;
     registro.registroTemporal = {
       numero_muestra: registro.numero_muestra,
@@ -125,7 +108,7 @@ export class MuestComponent implements OnInit {
 
   // Method to save the edited changes
   async guardarEdicion(index: number) {
-    const registro = this.registros[index];
+    const registro = this.registros()[index];
     if (registro.registroTemporal && registro.id) {
       const datosActualizados = {
         numero_muestra: registro.registroTemporal.numero_muestra,
@@ -137,10 +120,6 @@ export class MuestComponent implements OnInit {
       const resultado = await this.registroService.actualizarRegistro(registro.id, datosActualizados);
       
       if (resultado) {
-        registro.numero_muestra = registro.registroTemporal.numero_muestra;
-        registro.fecha = registro.registroTemporal.fecha;
-        registro.palet = registro.registroTemporal.palet;
-        registro.ubicacion_palet = registro.registroTemporal.ubicacion_palet;
         registro.editando = false;
         delete registro.registroTemporal;
       }
@@ -149,7 +128,7 @@ export class MuestComponent implements OnInit {
 
   // Método para cancelar la edición
   cancelarEdicion(index: number) {
-    const registro = this.registros[index];
+    const registro = this.registros()[index];
     registro.editando = false;
     delete registro.registroTemporal;
   }
