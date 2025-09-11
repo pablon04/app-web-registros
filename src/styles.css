@@ -3,15 +3,26 @@ html{
     padding: 0;
 }
 
+header{
+    width: auto;
+}
+
 body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
 
 }
 
+@media (max-width: 768px) {
+    body{
+        width: fit-content;
+    }
+}
+
+
 @media (max-width <=425px) {
     html{
-        width: 100%;
+        width: fit-content;
 
     }
 
