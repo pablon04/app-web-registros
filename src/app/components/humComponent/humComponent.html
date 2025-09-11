@@ -86,19 +86,23 @@
                 </td>
                 <td class="horno">
                     <ng-container *ngIf="!registro.editando">{{ registro.horno }}</ng-container>
-                    <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.horno">
+                    <select *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.horno">
+                        <option value="Laboratorio">Laboratio</option>
+                        <option value="Suelo">Suelo</option>
+                        <option value="Química">Química</option>
+                    </select>
                 </td>
                 <td class="acciones">
-                    <button type="button" class="editar-btn" (click)="editarRegistro(i)" *ngIf="!registro.editando">
+                    <button type="button" class="editar-btn" (click)="editarRegistro(registro)" *ngIf="!registro.editando">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button type="button" class="guardar-btn" (click)="guardarEdicion(i)" *ngIf="registro.editando">
+                    <button type="button" class="guardar-btn" (click)="guardarEdicion(registro)" *ngIf="registro.editando">
                         <i class="fas fa-save"></i>
                     </button>
-                    <button type="button" class="cancelar-btn" (click)="cancelarEdicion(i)" *ngIf="registro.editando">
+                    <button type="button" class="cancelar-btn" (click)="cancelarEdicion(registro)" *ngIf="registro.editando">
                         <i class="fas fa-times"></i>
                     </button>
-                    <button type="button" class="eliminar-btn" (click)="eliminarRegistro(i)">
+                    <button type="button" class="eliminar-btn" (click)="eliminarRegistro(registro)">
                         <i class="fas fa-trash"></i>
                     </button>
                 </td>

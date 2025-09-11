@@ -20,6 +20,7 @@
         <option value="A-2">A-2</option>
         <option value="A-3">A-3</option>
         <option value="A-4">A-4</option>
+        <option value="A-5">A-5</option>
       </select>
 
       <select name="ubicacionPalet" id="ubicacionPalet" [(ngModel)]="ubicacionPalet" required>
@@ -78,6 +79,7 @@
         <option value="A-2">A-2</option>
         <option value="A-3">A-3</option>
         <option value="A-4">A-4</option>
+        <option value="A-5">A-5</option>
       </select>
 
       <select name="ubicacionPalet" class="main__input" id="ubicacionPalet" [(ngModel)]="busquedaubicacionPalet" required>
@@ -136,11 +138,31 @@
         </td>
         <td class="palet">
           <ng-container *ngIf="!registro.editando">{{ registro.palet }}</ng-container>
-          <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.palet">
+          <select *ngIf="registro.editando" [(ngModel)]="registro.registroTemporal!.palet">
+            <option value="" disabled>Seleccionar Palet</option>
+            <option value="E-1">E-1</option>
+            <option value="E-2">E-2</option>
+            <option value="E-3">E-3</option>
+            <option value="E-4">E-4</option>
+            <option value="E-5">E-5</option>
+            <option value="E-6">E-6</option>
+            <option value="E-7">E-7</option>
+            <option value="E-8">E-8</option>
+            <option value="E-9">E-9</option>
+            <option value="A-1">A-1</option>
+            <option value="A-2">A-2</option>
+            <option value="A-3">A-3</option>
+            <option value="A-4">A-4</option>
+            <option value="A-5">A-5</option>
+          </select>
         </td>
         <td class="ubicacionPalet">
           <ng-container *ngIf="!registro.editando">{{ registro.ubicacion_palet }}</ng-container>
-          <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.ubicacion_palet">
+          <select *ngIf="registro.editando" [(ngModel)]="registro.registroTemporal!.ubicacion_palet">
+            <option value="" disabled>Seleccionar Ubicación Palet</option>
+            <option value="Entrada">Entrada</option>
+            <option value="Almacén">Almacén</option>
+          </select>
         </td>
         <td class="observaciones">
           <ng-container *ngIf="!registro.editando">
@@ -165,16 +187,16 @@
           <input *ngIf="registro.editando" type="checkbox" [(ngModel)]="registro.registroTemporal!.almacenar">
         </td>
         <td class="acciones">
-          <button type="button" class="editar-btn" (click)="editarRegistro(i)" *ngIf="!registro.editando">
+          <button type="button" class="editar-btn" (click)="editarRegistro(registro)" *ngIf="!registro.editando">
             <i class="fas fa-edit"></i>
           </button>
-          <button type="button" class="guardar-btn" (click)="guardarEdicion(i)" *ngIf="registro.editando">
+          <button type="button" class="guardar-btn" (click)="guardarEdicion(registro)" *ngIf="registro.editando">
             <i class="fas fa-save"></i>
           </button>
-          <button type="button" class="cancelar-btn" (click)="cancelarEdicion(i)" *ngIf="registro.editando">
+          <button type="button" class="cancelar-btn" (click)="cancelarEdicion(registro)" *ngIf="registro.editando">
             <i class="fas fa-times"></i>
           </button>
-          <button type="button" class="eliminar-btn" (click)="eliminarRegistro(i)">
+          <button type="button" class="eliminar-btn" (click)="eliminarRegistro(registro)">
             <i class="fas fa-trash"></i>
           </button>
         </td>

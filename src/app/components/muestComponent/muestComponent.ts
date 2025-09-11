@@ -56,8 +56,7 @@ export class MuestComponent implements OnInit {
     }
   }
 
-  async eliminarRegistro(index: number) {
-    const registro = this.registros()[index]; // Ahora usamos la función reactiva
+  async eliminarRegistro(registro: RegistroMuestra) {
     if (registro.id) {
       const resultado = await this.registroService.eliminarRegistro(registro.id);
       // No necesitamos splice, el servicio actualiza automáticamente la lista
@@ -110,8 +109,7 @@ export class MuestComponent implements OnInit {
   }
 
   // Method to start editing a record
-  editarRegistro(index: number) {
-    const registro = this.registros()[index];
+  editarRegistro(registro: RegistroMuestra) {
     registro.editando = true;
     registro.registroTemporal = {
       numero_muestra: registro.numero_muestra,
@@ -125,8 +123,7 @@ export class MuestComponent implements OnInit {
   }
 
   // Method to save the edited changes
-  async guardarEdicion(index: number) {
-    const registro = this.registros()[index];
+  async guardarEdicion(registro: RegistroMuestra) {
     if (registro.registroTemporal && registro.id) {
       const datosActualizados = {
         numero_muestra: registro.registroTemporal.numero_muestra,
@@ -148,8 +145,7 @@ export class MuestComponent implements OnInit {
   }
 
   // Método para cancelar la edición
-  cancelarEdicion(index: number) {
-    const registro = this.registros()[index];
+  cancelarEdicion(registro: RegistroMuestra) {
     registro.editando = false;
     delete registro.registroTemporal;
   }

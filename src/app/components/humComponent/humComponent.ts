@@ -53,9 +53,8 @@ export default class HumComponent implements AfterViewInit {
     }
   }
 
-  // Método para eliminar un registro por su índice
-  async eliminarRegistro(index: number) {
-    const registro = this.registros()[index];
+  // Método para eliminar un registro
+  async eliminarRegistro(registro: RegistroHumedad) {
     if (registro.id) {
       const resultado = await this.registroService.eliminarRegistro(registro.id);
       // No necesitamos splice, el servicio actualiza automáticamente la lista
@@ -97,8 +96,7 @@ export default class HumComponent implements AfterViewInit {
   }
 
   // Método para iniciar la edición de un registro
-  editarRegistro(index: number) {
-    const registro = this.registros()[index];
+  editarRegistro(registro: RegistroHumedad) {
     registro.editando = true;
     registro.registroTemporal = {
       tara: registro.tara,
@@ -109,8 +107,7 @@ export default class HumComponent implements AfterViewInit {
   }
 
   // Método para guardar los cambios de la edición
-  async guardarEdicion(index: number) {
-    const registro = this.registros()[index];
+  async guardarEdicion(registro: RegistroHumedad) {
     if (registro.registroTemporal && registro.id) {
       const datosActualizados = {
         tara: registro.registroTemporal.tara,
@@ -129,8 +126,7 @@ export default class HumComponent implements AfterViewInit {
   }
 
   // Método para cancelar la edición
-  cancelarEdicion(index: number) {
-    const registro = this.registros()[index];
+  cancelarEdicion(registro: RegistroHumedad) {
     registro.editando = false;
     delete registro.registroTemporal;
   }
