@@ -20,6 +20,7 @@ export class MuestComponent implements OnInit {
   fecha: string = '';
   palet: string = '';
   ubicacionPalet: string = '';
+  observaciones: string = '';
 
   // Propiedades computadas del servicio (reactivas)
   registros = this.registroService.registros;
@@ -42,7 +43,9 @@ export class MuestComponent implements OnInit {
       fecha: this.fecha,
       palet: this.palet,
       ubicacion_palet: this.ubicacionPalet,
-      tirar: false // Por defecto, los nuevos registros no están marcados para tirar
+      observaciones: this.observaciones.trim() || undefined, // Solo guardar si no está vacío
+      tirar: false, // Por defecto, los nuevos registros no están marcados para tirar
+      almacenar: false // Por defecto, los nuevos registros no están marcados para almacenar
     };
 
     const resultado = await this.registroService.crearRegistro(nuevoRegistro);
@@ -66,6 +69,7 @@ export class MuestComponent implements OnInit {
     this.fecha = '';
     this.palet = '';
     this.ubicacionPalet = '';
+    this.observaciones = '';
   }
 
   // --- Storage Methods ---
@@ -81,6 +85,7 @@ export class MuestComponent implements OnInit {
   
   // Nuevos filtros con checkbox
   filtroSoloTirar: boolean = false;
+  filtroSoloAlmacenar: boolean = false;
   filtroSoloVencidos: boolean = false;
 
   // Filtering method
@@ -97,9 +102,10 @@ export class MuestComponent implements OnInit {
       
       // Nuevos filtros de checkbox
       const filtroTirar = !this.filtroSoloTirar || registro.tirar;
+      const filtroAlmacenar = !this.filtroSoloAlmacenar || registro.almacenar;
       const filtroVencidos = !this.filtroSoloVencidos || this.isDateOlderThanOneMonth(registro.fecha);
 
-      return coincideMuestra && coincideFecha && coincidePalet && coincideUbicacionPalet && filtroTirar && filtroVencidos;
+      return coincideMuestra && coincideFecha && coincidePalet && coincideUbicacionPalet && filtroTirar && filtroAlmacenar && filtroVencidos;
     });
   }
 
@@ -112,7 +118,9 @@ export class MuestComponent implements OnInit {
       fecha: registro.fecha,
       palet: registro.palet,
       ubicacion_palet: registro.ubicacion_palet,
-      tirar: registro.tirar || false // Incluir el estado de tirar en la edición
+      observaciones: registro.observaciones || '', // Incluir observaciones en la edición
+      tirar: registro.tirar || false, // Incluir el estado de tirar en la edición
+      almacenar: registro.almacenar || false // Incluir el estado de almacenar en la edición
     };
   }
 
@@ -125,7 +133,9 @@ export class MuestComponent implements OnInit {
         fecha: registro.registroTemporal.fecha,
         palet: registro.registroTemporal.palet,
         ubicacion_palet: registro.registroTemporal.ubicacion_palet,
-        tirar: registro.registroTemporal.tirar || false // Guardar el estado de tirar
+        observaciones: registro.registroTemporal.observaciones?.trim() || undefined, // Guardar observaciones
+        tirar: registro.registroTemporal.tirar || false, // Guardar el estado de tirar
+        almacenar: registro.registroTemporal.almacenar || false // Guardar el estado de almacenar
       };
 
       const resultado = await this.registroService.actualizarRegistro(registro.id, datosActualizados);

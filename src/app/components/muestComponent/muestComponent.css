@@ -33,7 +33,15 @@ body{
     margin-bottom: 20px;
 }
 
-.registrar input, .registrar select{
+.registrar form{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.registrar input, .registrar select, .registrar .textarea-observaciones{
+    
     padding: 0.75rem;
     margin-right: 10px;
     background-color: rgba(128, 128, 128, 0.151);
@@ -48,6 +56,11 @@ body{
 }
 
 .registrar select:focus{
+    outline: none;
+    border: 2px solid #961818;
+}
+
+.registrar .textarea-observaciones:focus{
     outline: none;
     border: 2px solid #961818;
 }
@@ -229,7 +242,7 @@ body{
 }
 
 .fila-vencida {
-  background-color: #ffcccc; /* A light red color */
+  background-color: yellow; 
 }
 
 @media (max-width: 768px) {
@@ -250,7 +263,7 @@ body{
     gap: 10px; 
   }
 
-  .registrar input {
+  .registrar input, .registrar select, .registrar .textarea-observaciones{
     width: 90%; 
     margin-right: 0; 
   }
@@ -300,7 +313,7 @@ body{
     gap: 10px; /* Add space between stacked elements */
   }
   
-  .registrar input {
+  .registrar input, .registrar select, .registrar .textarea-observaciones{
     width: 90%; /* Make inputs full width */
     margin-right: 0; /* Remove right margin */
   }
@@ -395,6 +408,12 @@ body{
   
 }
 
+/* Estilos para la columna Almacenar */
+.almacenar {
+  text-align: center;
+  width: 80px;
+}
+
 .registros  {
   accent-color: #c62828;
 }
@@ -403,6 +422,12 @@ body{
   transform: scale(1.2);
   cursor: pointer;
   color: #c62828;
+}
+
+.almacenar input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+  accent-color: #2e7d32;
 }
 
 /* Estilo para filas marcadas para tirar */
@@ -415,9 +440,56 @@ tr.marcado-tirar td {
   color: white !important;
 }
 
-/* Estilo para el checkbox cuando está en una fila marcada */
+/* Estilo para el checkbox cuando está en una fila marcada para tirar */
 tr.marcado-tirar .tirar input[type="checkbox"] {
   accent-color: white;
+}
+
+/* Estilo para filas marcadas para almacenar */
+tr.marcado-almacenar {
+  background-color: #2e7d32d0 !important;
+  color: white !important;
+}
+
+tr.marcado-almacenar td {
+  color: white !important;
+}
+
+/* Estilo para el checkbox cuando está en una fila marcada para almacenar */
+tr.marcado-almacenar .almacenar input[type="checkbox"] {
+  accent-color:green;
+}
+
+/* Estilos para la columna de observaciones */
+.observaciones {
+  max-width: 200px;
+  word-wrap: break-word;
+  padding: 8px;
+}
+
+.observaciones-texto {
+  display: block;
+  max-height: 60px;
+  overflow-y: auto;
+  line-height: 1.4;
+  font-size: 13px;
+}
+
+.textarea-edicion {
+  width: 100%;
+  min-height: 40px;
+  max-height: 80px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  font-family: sans-serif;
+  font-size: 13px;
+}
+
+.textarea-edicion:focus {
+  outline: none;
+  border: 2px solid #961818;
 }
 
 /* Estilos para los filtros de checkbox */

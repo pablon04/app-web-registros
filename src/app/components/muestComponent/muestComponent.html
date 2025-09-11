@@ -7,23 +7,35 @@
       <input type="date" id="fecha" [(ngModel)]="fecha" name="fecha" required>
       <select name="palet" id="palet" [(ngModel)]="palet" required>
         <option value="" disabled selected>Seleccionar Palet</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
+        <option value="E-1">E-1</option>
+        <option value="E-2">E-2</option>
+        <option value="E-3">E-3</option>
+        <option value="E-4">E-4</option>
+        <option value="E-5">E-5</option>
+        <option value="E-6">E-6</option>
+        <option value="E-7">E-7</option>
+        <option value="E-8">E-8</option>
+        <option value="E-9">E-9</option>
+        <option value="A-1">A-1</option>
+        <option value="A-2">A-2</option>
+        <option value="A-3">A-3</option>
+        <option value="A-4">A-4</option>
       </select>
 
       <select name="ubicacionPalet" id="ubicacionPalet" [(ngModel)]="ubicacionPalet" required>
         <option value="" disabled selected>Seleccionar Ubicación Palet</option>
-        <option value="Nave">Nave</option>
-        <option value="Patio">Patio</option>
+        <option value="Entrada">Entrada</option>
+        <option value="Almacén">Almacén</option>
       </select>
+
+      <textarea 
+        placeholder="Observaciones (opcional)" 
+        id="observaciones" 
+        [(ngModel)]="observaciones" 
+        name="observaciones"
+        rows="2"
+        class="textarea-observaciones">
+      </textarea>
 
       <!-- <input type="text" placeholder="Palet" id="palet" [(ngModel)]="palet" name="palet" required> -->
       <!-- <input type="text" placeholder="Ubicación Palet" id="ubicacionPalet" [(ngModel)]="ubicacionPalet" name="ubicacionPalet" required> -->
@@ -53,22 +65,25 @@
 
       <select name="busquedapalet" class="main__input" id="palet" [(ngModel)]="busquedapalet" required>
         <option value="" >Seleccionar Palet</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
+        <option value="E-1">E-1</option>
+        <option value="E-2">E-2</option>
+        <option value="E-3">E-3</option>
+        <option value="E-4">E-4</option>
+        <option value="E-5">E-5</option>
+        <option value="E-6">E-6</option>
+        <option value="E-7">E-7</option>
+        <option value="E-8">E-8</option>
+        <option value="E-9">E-9</option>
+        <option value="A-1">A-1</option>
+        <option value="A-2">A-2</option>
+        <option value="A-3">A-3</option>
+        <option value="A-4">A-4</option>
       </select>
 
       <select name="ubicacionPalet" class="main__input" id="ubicacionPalet" [(ngModel)]="busquedaubicacionPalet" required>
         <option value="">Seleccionar Ubicación Palet</option>
-        <option value="Nave">Nave</option>
-        <option value="Patio">Patio</option>
+        <option value="Entrada">Entrada</option>
+        <option value="Almacén">Almacén</option>
       </select>
       
       <div class="filtros-checkbox">
@@ -78,22 +93,16 @@
         </label>
         
         <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="filtroSoloAlmacenar" name="filtroSoloAlmacenar">
+          Almacenar
+        </label>
+        
+        <label class="checkbox-label">
           <input type="checkbox" [(ngModel)]="filtroSoloVencidos" name="filtroSoloVencidos">
           Más de 1 mes
         </label>
       </div>
       
-      <!-- <input type="search" 
-         [(ngModel)]="busquedapalet" 
-         name="busquedapalet" 
-         class="main__input"
-         placeholder="Buscar Palet"> -->
-
-      <!-- <input type="search" 
-         [(ngModel)]="busquedaubicacionPalet" 
-         name="busquedaubicacionPalet" 
-         class="main__input"
-         placeholder="Buscar Ubicación Palet"> -->
     </div>
     <table>
       <tr>
@@ -101,7 +110,9 @@
         <th>Fecha Entrada</th>
         <th>Palet</th>
         <th>Ubicación Palet</th>
+        <th>Observaciones</th>
         <th>Tirar</th>
+        <th>Almacenar</th>
         <th>Acciones</th>
       </tr>
     @for (registro of registrosFiltrados; track registro; let i = $index) {
@@ -112,7 +123,8 @@
         'destacado-palet': busquedapalet && registro.palet.toLowerCase().includes(busquedapalet.toLowerCase()),
         'destacado-ubicacionPalet': busquedaubicacionPalet && registro.ubicacion_palet.toLowerCase().includes(busquedaubicacionPalet.toLowerCase()),
         'fila-vencida': isDateOlderThanOneMonth(registro.fecha),
-        'marcado-tirar': registro.tirar
+        'marcado-tirar': registro.tirar,
+        'marcado-almacenar': registro.almacenar
         }">
         <td class="numeroMuestra">
           <ng-container *ngIf="!registro.editando">{{ registro.numero_muestra }}</ng-container>
@@ -130,11 +142,27 @@
           <ng-container *ngIf="!registro.editando">{{ registro.ubicacion_palet }}</ng-container>
           <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.ubicacion_palet">
         </td>
+        <td class="observaciones">
+          <ng-container *ngIf="!registro.editando">
+            <span class="observaciones-texto">{{ registro.observaciones || '-' }}</span>
+          </ng-container>
+          <textarea *ngIf="registro.editando" 
+                    [(ngModel)]="registro.registroTemporal!.observaciones" 
+                    rows="2" 
+                    class="textarea-edicion">
+          </textarea>
+        </td>
         <td class="tirar">
           <ng-container *ngIf="!registro.editando">
             <input type="checkbox" [checked]="registro.tirar" disabled>
           </ng-container>
           <input *ngIf="registro.editando" type="checkbox" [(ngModel)]="registro.registroTemporal!.tirar">
+        </td>
+        <td class="almacenar">
+          <ng-container *ngIf="!registro.editando">
+            <input type="checkbox" [checked]="registro.almacenar" disabled>
+          </ng-container>
+          <input *ngIf="registro.editando" type="checkbox" [(ngModel)]="registro.registroTemporal!.almacenar">
         </td>
         <td class="acciones">
           <button type="button" class="editar-btn" (click)="editarRegistro(i)" *ngIf="!registro.editando">
