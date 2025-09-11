@@ -7,7 +7,14 @@
             <input [(ngModel)]="tara" type="text" id="tara" name="tara" placeholder="Tara" />
             <input [(ngModel)]="muestra" type="text" id="muestra" name="muestra" placeholder="Nº Muestra" />
             <input [(ngModel)]="ensayo" type="text" id="ensayo" name="ensayo" placeholder="Ensayo" />
-            <input [(ngModel)]="horno" type="text" id="horno" name="horno" placeholder="Horno" />
+
+            <select name="horno" id="horno" [(ngModel)]="horno" placeholder="Horno">
+                <option value="" class="disabled" disabled selected>Selecciona un horno</option>
+                <option value="Laboratorio">Laboratio</option>
+                <option value="Suelo">Suelo</option>
+                <option value="Química">Química</option>
+            </select>
+
 
             <button type="button" (click)="agregarRegistro()" class="agregar-btn">
                 <i class="fa-solid fa-plus"></i>Agregar
@@ -40,11 +47,14 @@
                    class="main__input"
                    placeholder="Buscar Ensayo">
 
-            <input type="search" 
-                   [(ngModel)]="busquedaHorno" 
-                   name="busquedaHorno" 
-                   class="main__input"
-                   placeholder="Buscar Horno">
+
+            <select name="horno" id="horno" [(ngModel)]="busquedaHorno" class="main__input">
+                <option value="">Buscar horno</option>
+                <option value="Laboratorio">Laboratio</option>
+                <option value="Suelo">Suelo</option>
+                <option value="Química">Química</option>
+            </select>
+
         </div>
         <table>
             <tr>

@@ -5,8 +5,28 @@
     <form (ngSubmit)="agregarRegistro()">
       <input type="text" placeholder="Nº Muestra" id="numeroMuestra" [(ngModel)]="numeroMuestra" name="numeroMuestra" required>
       <input type="date" id="fecha" [(ngModel)]="fecha" name="fecha" required>
-      <input type="text" placeholder="Palet" id="palet" [(ngModel)]="palet" name="palet" required>
-      <input type="text" placeholder="Ubicación Palet" id="ubicacionPalet" [(ngModel)]="ubicacionPalet" name="ubicacionPalet" required>
+      <select name="palet" id="palet" [(ngModel)]="palet" required>
+        <option value="" disabled selected>Seleccionar Palet</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+
+      <select name="ubicacionPalet" id="ubicacionPalet" [(ngModel)]="ubicacionPalet" required>
+        <option value="" disabled selected>Seleccionar Ubicación Palet</option>
+        <option value="Nave">Nave</option>
+        <option value="Patio">Patio</option>
+      </select>
+
+      <!-- <input type="text" placeholder="Palet" id="palet" [(ngModel)]="palet" name="palet" required> -->
+      <!-- <input type="text" placeholder="Ubicación Palet" id="ubicacionPalet" [(ngModel)]="ubicacionPalet" name="ubicacionPalet" required> -->
 
       <button type="submit" class="agregar-btn">
         <i class="fa-solid fa-plus"></i>Agregar
@@ -29,18 +49,39 @@
          name="busquedafecha" 
          class="main__input"
          placeholder="Buscar Fecha">
+
+
+      <select name="busquedapalet" class="main__input" id="palet" [(ngModel)]="busquedapalet" required>
+        <option value="" >Seleccionar Palet</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+
+      <select name="ubicacionPalet" class="main__input" id="ubicacionPalet" [(ngModel)]="busquedaubicacionPalet" required>
+        <option value="">Seleccionar Ubicación Palet</option>
+        <option value="Nave">Nave</option>
+        <option value="Patio">Patio</option>
+      </select>
       
-      <input type="search" 
+      <!-- <input type="search" 
          [(ngModel)]="busquedapalet" 
          name="busquedapalet" 
          class="main__input"
-         placeholder="Buscar Palet">
+         placeholder="Buscar Palet"> -->
 
-      <input type="search" 
+      <!-- <input type="search" 
          [(ngModel)]="busquedaubicacionPalet" 
          name="busquedaubicacionPalet" 
          class="main__input"
-         placeholder="Buscar Ubicación Palet">
+         placeholder="Buscar Ubicación Palet"> -->
     </div>
     <table>
       <tr>

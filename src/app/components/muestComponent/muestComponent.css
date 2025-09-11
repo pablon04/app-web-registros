@@ -33,7 +33,7 @@ body{
     margin-bottom: 20px;
 }
 
-.registrar input{
+.registrar input, .registrar select{
     padding: 0.75rem;
     margin-right: 10px;
     background-color: rgba(128, 128, 128, 0.151);
@@ -43,6 +43,11 @@ body{
 }
 
 .registrar form input:focus{
+    outline: none;
+    border: 2px solid #961818;
+}
+
+.registrar select:focus{
     outline: none;
     border: 2px solid #961818;
 }
@@ -80,6 +85,11 @@ body{
     box-shadow: 5px 5px 5px 5px grey;
     border-radius: 10px;
     background-color: white;
+}
+
+.registros select:focus{
+    outline: none;
+    border: 2px solid #961818;
 }
 
 .registros table{
