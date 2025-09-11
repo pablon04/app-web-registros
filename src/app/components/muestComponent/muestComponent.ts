@@ -41,7 +41,8 @@ export class MuestComponent implements OnInit {
       numero_muestra: this.numeroMuestra,
       fecha: this.fecha,
       palet: this.palet,
-      ubicacion_palet: this.ubicacionPalet
+      ubicacion_palet: this.ubicacionPalet,
+      tirar: false // Por defecto, los nuevos registros no están marcados para tirar
     };
 
     const resultado = await this.registroService.crearRegistro(nuevoRegistro);
@@ -77,6 +78,10 @@ export class MuestComponent implements OnInit {
   busquedafecha: string = '';
   busquedapalet: string = '';
   busquedaubicacionPalet: string = '';
+  
+  // Nuevos filtros con checkbox
+  filtroSoloTirar: boolean = false;
+  filtroSoloVencidos: boolean = false;
 
   // Filtering method
   get registrosFiltrados() {
@@ -89,8 +94,12 @@ export class MuestComponent implements OnInit {
         registro.palet.toLowerCase().includes(this.busquedapalet.toLowerCase());
       const coincideUbicacionPalet = !this.busquedaubicacionPalet ||
         registro.ubicacion_palet.toLowerCase().includes(this.busquedaubicacionPalet.toLowerCase());
+      
+      // Nuevos filtros de checkbox
+      const filtroTirar = !this.filtroSoloTirar || registro.tirar;
+      const filtroVencidos = !this.filtroSoloVencidos || this.isDateOlderThanOneMonth(registro.fecha);
 
-      return coincideMuestra && coincideFecha && coincidePalet && coincideUbicacionPalet;
+      return coincideMuestra && coincideFecha && coincidePalet && coincideUbicacionPalet && filtroTirar && filtroVencidos;
     });
   }
 
@@ -102,7 +111,8 @@ export class MuestComponent implements OnInit {
       numero_muestra: registro.numero_muestra,
       fecha: registro.fecha,
       palet: registro.palet,
-      ubicacion_palet: registro.ubicacion_palet
+      ubicacion_palet: registro.ubicacion_palet,
+      tirar: registro.tirar || false // Incluir el estado de tirar en la edición
     };
   }
 
@@ -114,7 +124,8 @@ export class MuestComponent implements OnInit {
         numero_muestra: registro.registroTemporal.numero_muestra,
         fecha: registro.registroTemporal.fecha,
         palet: registro.registroTemporal.palet,
-        ubicacion_palet: registro.registroTemporal.ubicacion_palet
+        ubicacion_palet: registro.registroTemporal.ubicacion_palet,
+        tirar: registro.registroTemporal.tirar || false // Guardar el estado de tirar
       };
 
       const resultado = await this.registroService.actualizarRegistro(registro.id, datosActualizados);

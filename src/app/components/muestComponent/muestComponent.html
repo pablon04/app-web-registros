@@ -71,6 +71,18 @@
         <option value="Patio">Patio</option>
       </select>
       
+      <div class="filtros-checkbox">
+        <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="filtroSoloTirar" name="filtroSoloTirar">
+          Tirar
+        </label>
+        
+        <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="filtroSoloVencidos" name="filtroSoloVencidos">
+          Más de 1 mes
+        </label>
+      </div>
+      
       <!-- <input type="search" 
          [(ngModel)]="busquedapalet" 
          name="busquedapalet" 
@@ -89,6 +101,7 @@
         <th>Fecha Entrada</th>
         <th>Palet</th>
         <th>Ubicación Palet</th>
+        <th>Tirar</th>
         <th>Acciones</th>
       </tr>
     @for (registro of registrosFiltrados; track registro; let i = $index) {
@@ -98,7 +111,8 @@
         'destacado-fecha': busquedafecha && registro.fecha.toLowerCase().includes(busquedafecha.toLowerCase()),
         'destacado-palet': busquedapalet && registro.palet.toLowerCase().includes(busquedapalet.toLowerCase()),
         'destacado-ubicacionPalet': busquedaubicacionPalet && registro.ubicacion_palet.toLowerCase().includes(busquedaubicacionPalet.toLowerCase()),
-        'fila-vencida': isDateOlderThanOneMonth(registro.fecha)
+        'fila-vencida': isDateOlderThanOneMonth(registro.fecha),
+        'marcado-tirar': registro.tirar
         }">
         <td class="numeroMuestra">
           <ng-container *ngIf="!registro.editando">{{ registro.numero_muestra }}</ng-container>
@@ -115,6 +129,12 @@
         <td class="ubicacionPalet">
           <ng-container *ngIf="!registro.editando">{{ registro.ubicacion_palet }}</ng-container>
           <input *ngIf="registro.editando" type="text" [(ngModel)]="registro.registroTemporal!.ubicacion_palet">
+        </td>
+        <td class="tirar">
+          <ng-container *ngIf="!registro.editando">
+            <input type="checkbox" [checked]="registro.tirar" disabled>
+          </ng-container>
+          <input *ngIf="registro.editando" type="checkbox" [(ngModel)]="registro.registroTemporal!.tirar">
         </td>
         <td class="acciones">
           <button type="button" class="editar-btn" (click)="editarRegistro(i)" *ngIf="!registro.editando">

@@ -42,7 +42,8 @@ export class RegistroMuestraService {
       // Inicializar propiedades de edición
       const registrosConEdicion = (data || []).map(registro => ({
         ...registro,
-        editando: false
+        editando: false,
+        tirar: registro.tirar || false // Asegurar que tirar tenga un valor por defecto
       }));
 
       this._state.update((state) => ({ 
@@ -75,7 +76,8 @@ export class RegistroMuestraService {
       // Inicializar propiedades de edición
       const registroConEdicion = {
         ...data,
-        editando: false
+        editando: false,
+        tirar: data.tirar || false // Asegurar que tirar tenga un valor por defecto
       };
 
       // Actualizar el estado local

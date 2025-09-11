@@ -22,6 +22,7 @@ export interface RegistroMuestra {
   fecha: string;
   palet: string;
   ubicacion_palet: string;
+  tirar?: boolean; // Nueva propiedad para marcar si se debe tirar
   fecha_creacion?: string;
   fecha_actualizacion?: string;
   // Propiedades para edición local
@@ -31,6 +32,7 @@ export interface RegistroMuestra {
     fecha: string;
     palet: string;
     ubicacion_palet: string;
+    tirar?: boolean;
   };
 }
 

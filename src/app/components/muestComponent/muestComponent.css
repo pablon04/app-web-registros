@@ -161,8 +161,6 @@ body{
   background-color: #fafafa;
 }
 
-
-
 .registros tbody tr:hover {
   background-color: #f5f5f5;
 }
@@ -388,4 +386,68 @@ body{
   border-radius: 4px;
   margin: 10px 0;
   text-align: center;
+}
+
+/* Estilos para la columna Tirar */
+.tirar {
+  text-align: center;
+  width: 80px;
+  
+}
+
+.registros  {
+  accent-color: #c62828;
+}
+
+.tirar input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+  color: #c62828;
+}
+
+/* Estilo para filas marcadas para tirar */
+tr.marcado-tirar {
+  background-color: #a80808d0 !important;
+  color: white !important;
+}
+
+tr.marcado-tirar td {
+  color: white !important;
+}
+
+/* Estilo para el checkbox cuando está en una fila marcada */
+tr.marcado-tirar .tirar input[type="checkbox"] {
+  accent-color: white;
+}
+
+/* Estilos para los filtros de checkbox */
+.filtros-checkbox {
+   display: block;
+    background-color:  rgba(128, 128, 128, 0.151);
+    width: 100%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #ccc;
+    outline: none;
+    margin-bottom: 3rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  accent-color: #961818;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.checkbox-label:hover {
+  color: #961818;
 }
